@@ -17,6 +17,8 @@ class ResultViewController: UIViewController {
 
     
     
-    
+    func justDoIt() {
+        print("DO IT")
+    }
     
 }
