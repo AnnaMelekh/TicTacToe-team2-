@@ -12,14 +12,15 @@ import SnapKit
 class OnboardingViewController: UIViewController {
 //    - MARK: UI Elements
     
-    private let questionBotton: UIButton = {
+    private lazy var questionBotton: UIButton = {
         $0.setImage(UIImage(named: "Rules"), for: .normal)
+        $0.addTarget(self, action: #selector(goToSomeVC(_:)), for: .touchUpInside)
         return $0
     }(UIButton())
     
-    private let settingButton: UIButton = {
+    private lazy var settingButton: UIButton = {
         $0.setImage(UIImage(named: "Settings"), for: .normal)
-        $0.setImage(UIImage(named: "settingPressed"), for: .highlighted)
+        $0.addTarget(self, action: #selector(goToSomeVC(_:)), for: .touchUpInside)
         return $0
     }(UIButton())
     
@@ -36,13 +37,14 @@ class OnboardingViewController: UIViewController {
         return $0
     }(UILabel())
     
-    private let playButton: UIButton = {
+    private lazy var playButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = UIColor(named: "blue")
         button.layer.cornerRadius = 30
         button.setTitle("Let's play", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
+        button.addTarget(self, action: #selector(goToSomeVC(_:)), for: .touchUpInside)
         return button
     }()
     
@@ -56,29 +58,17 @@ class OnboardingViewController: UIViewController {
 // MARK: - Methods
     
     private func setupUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "white")
         view.addSubview(questionBotton)
         view.addSubview(settingButton)
         view.addSubview(xoImageView)
         view.addSubview(ticTacToeLabel)
         view.addSubview(playButton)
+        setupNavigationBar()
         setupConstraints()
     }
     
     private func setupConstraints() {
-        questionBotton.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
-            make.left.equalTo(view.safeAreaLayoutGuide.snp.left).offset(21)
-            make.width.equalTo(36)
-            make.height.equalTo(36)
-        }
-        
-        settingButton.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
-            make.right.equalTo(view.safeAreaLayoutGuide.snp.right).offset(-21)
-            make.width.equalTo(36)
-            make.height.equalTo(36)
-        }
         
         xoImageView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
@@ -101,7 +91,33 @@ class OnboardingViewController: UIViewController {
         
     }
     
-
+    private func setupNavigationBar() {
+        let rightButton = UIBarButtonItem(customView: settingButton)
+        let leftButton = UIBarButtonItem(customView: questionBotton)
+        let backButtonImage = UIImage(named: "BackIcon")?.withRenderingMode(.alwaysOriginal)
+        navigationItem.hidesBackButton = true
+        navigationController?.navigationBar.backIndicatorImage = backButtonImage
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = backButtonImage
+        navigationItem.backButtonTitle = ""
+        navigationItem.rightBarButtonItem = rightButton
+        navigationItem.leftBarButtonItem = leftButton
+    }
+    
+    @objc
+    private func goToSomeVC(_ sender: UIButton) {
+        if sender == questionBotton {
+            pushViewController(HowToPlayViewController())
+        } else if sender == settingButton {
+            pushViewController(SettingsViewController())
+        } else if sender == playButton {
+            pushViewController(SelectGameViewController())
+        }
+    }
+    
+    @objc
+    func pushViewController(_ VC: UIViewController) {
+        navigationController?.pushViewController(VC, animated: true)
+    }
 
 }
 
