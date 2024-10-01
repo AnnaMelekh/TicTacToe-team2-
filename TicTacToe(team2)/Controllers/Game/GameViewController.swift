@@ -6,20 +6,49 @@
 //
 
 import UIKit
+import SnapKit
 
 class GameViewController: UIViewController {
     
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "background")
         
+        let field = createField()
+
         createTopStack()
         createTurnStack(image: UIImage(named: "Oskin1")!)
-        createField()
         
+//        field.addSubview(createVStackButtons())
+
         
+    }
+    
+    
+    // MARK: creating game field view
+    
+    func createVStackButtons() -> UIStackView {
+        let vStack = UIStackView()
+        
+        vStack.widthAnchor.constraint(equalToConstant: 280).isActive = true
+        vStack.heightAnchor.constraint(equalToConstant: 280).isActive = true
+        vStack.axis = .vertical
+        vStack.spacing = 20
+        vStack.distribution = .fillEqually
+        vStack.alignment = .center
+        vStack.translatesAutoresizingMaskIntoConstraints = false
+        vStack.widthAnchor.constraint(equalToConstant: 330).isActive = true
+        vStack.heightAnchor.constraint(equalToConstant: 333).isActive = true
+
+//        NSLayoutConstraint.activate([
+//            vStack.topAnchor.constraint(equalTo: field.topAnchor, constant: 10),
+//            vStack.leadingAnchor.constraint(equalTo: field.leadingAnchor, constant: 25),
+//            vStack.trailingAnchor.constraint(equalTo: field.trailingAnchor, constant: -25),
+//            vStack.bottomAnchor.constraint(equalTo: field.bottomAnchor, constant: -500),
+//        ])
+        
+        return vStack
     }
     
     func createField() -> UIView {
@@ -39,17 +68,50 @@ class GameViewController: UIViewController {
         view.addSubview(field)
         
         field.topAnchor.constraint(equalTo: view.topAnchor, constant: 370).isActive = true
-            field.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 45).isActive = true
-            field.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -45).isActive = true
-            field.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -175).isActive = true
+        field.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40).isActive = true
+        field.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40).isActive = true
+        field.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -175).isActive = true
             
-        
         return field
         
     }
     
+    // MARK: creating Hstack of 3 buttons
+    
+    private func createStackOfButtons() -> UIStackView {
+        let hStack = UIStackView()
+        hStack.widthAnchor.constraint(equalToConstant: 280).isActive = true
+        hStack.heightAnchor.constraint(equalToConstant: 103).isActive = true
+        hStack.axis = .horizontal
+        hStack.spacing = 20
+        hStack.distribution = .equalSpacing
+        hStack.alignment = .center
+        hStack.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        hStack.addArrangedSubview(createButton())
+        hStack.addArrangedSubview(createButton())
+        hStack.addArrangedSubview(createButton())
+
+        return hStack
+    }
+    
+    private func createButton() -> UIButton {
+        let button = UIButton()
+        
+        button.backgroundColor = UIColor(named: "lightBlue")
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.cornerRadius = 20
+        button.widthAnchor.constraint(equalToConstant: 74).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 73).isActive = true
+        
+        view.addSubview(button)
+        return button
+        
+    }
+    
     // MARK: creating top stack of 3 views
-    func createTopStack() {
+    private func createTopStack() {
         let hStack = UIStackView()
         hStack.widthAnchor.constraint(equalToConstant: 330).isActive = true
         hStack.heightAnchor.constraint(equalToConstant: 103).isActive = true
@@ -75,7 +137,7 @@ class GameViewController: UIViewController {
     }
     
     // Middle Stack with Turn label & icon
-    func createTurnStack(image: UIImage) {
+    private func createTurnStack(image: UIImage) {
         let hStack = UIStackView()
         hStack.widthAnchor.constraint(equalToConstant: 221).isActive = true
         hStack.heightAnchor.constraint(equalToConstant: 53).isActive = true
