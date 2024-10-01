@@ -10,17 +10,18 @@ import SnapKit
 
 class GameViewController: UIViewController {
     
+    var field: UIView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "background")
         
-        let field = createField()
+        field = createField()
 
         createTopStack()
         createTurnStack(image: UIImage(named: "Oskin1")!)
         
-//        field.addSubview(createVStackButtons())
+        field.addSubview(createVStackButtons())
 
         
     }
@@ -31,22 +32,26 @@ class GameViewController: UIViewController {
     func createVStackButtons() -> UIStackView {
         let vStack = UIStackView()
         
-        vStack.widthAnchor.constraint(equalToConstant: 280).isActive = true
-        vStack.heightAnchor.constraint(equalToConstant: 280).isActive = true
+        vStack.widthAnchor.constraint(equalToConstant: 290).isActive = true
+        vStack.heightAnchor.constraint(equalToConstant: 290).isActive = true
         vStack.axis = .vertical
         vStack.spacing = 20
         vStack.distribution = .fillEqually
         vStack.alignment = .center
         vStack.translatesAutoresizingMaskIntoConstraints = false
-        vStack.widthAnchor.constraint(equalToConstant: 330).isActive = true
-        vStack.heightAnchor.constraint(equalToConstant: 333).isActive = true
+        
+        vStack.addArrangedSubview(createStackOfButtons())
+        vStack.addArrangedSubview(createStackOfButtons())
+        vStack.addArrangedSubview(createStackOfButtons())
 
-//        NSLayoutConstraint.activate([
-//            vStack.topAnchor.constraint(equalTo: field.topAnchor, constant: 10),
-//            vStack.leadingAnchor.constraint(equalTo: field.leadingAnchor, constant: 25),
-//            vStack.trailingAnchor.constraint(equalTo: field.trailingAnchor, constant: -25),
-//            vStack.bottomAnchor.constraint(equalTo: field.bottomAnchor, constant: -500),
-//        ])
+        field.addSubview(vStack)
+
+        NSLayoutConstraint.activate([
+            vStack.topAnchor.constraint(equalTo: field.topAnchor, constant: 15),
+            vStack.leadingAnchor.constraint(equalTo: field.leadingAnchor, constant: 15),
+            vStack.trailingAnchor.constraint(equalTo: field.trailingAnchor, constant: -15),
+            vStack.bottomAnchor.constraint(equalTo: field.bottomAnchor, constant: -15),
+        ])
         
         return vStack
     }
@@ -62,8 +67,8 @@ class GameViewController: UIViewController {
         field.layer.shadowOpacity = 1
         field.layer.shadowOffset = CGSize(width: 0, height: 0)
         field.layer.borderColor = UIColor(named: "blue")?.cgColor
-        field.widthAnchor.constraint(equalToConstant: 300).isActive = true
-        field.heightAnchor.constraint(equalToConstant: 300).isActive = true
+        field.widthAnchor.constraint(equalToConstant: 280).isActive = true
+        field.heightAnchor.constraint(equalToConstant: 280).isActive = true
         
         view.addSubview(field)
         
@@ -102,8 +107,8 @@ class GameViewController: UIViewController {
         button.backgroundColor = UIColor(named: "lightBlue")
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 20
-        button.widthAnchor.constraint(equalToConstant: 74).isActive = true
-        button.heightAnchor.constraint(equalToConstant: 73).isActive = true
+        button.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 80).isActive = true
         
         view.addSubview(button)
         return button
