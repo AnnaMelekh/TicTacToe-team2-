@@ -6,13 +6,12 @@
 //
 
 import UIKit
+import SnapKit
 
 class GameViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemMint
     }
-
-
+    
 }
