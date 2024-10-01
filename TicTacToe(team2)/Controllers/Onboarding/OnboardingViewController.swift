@@ -84,7 +84,7 @@ class OnboardingViewController: UIViewController {
         
         playButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.bottom.equalTo(view.snp.bottom).offset(-80)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-40)
             make.width.equalTo(348)
             make.height.equalTo(72)
         }
@@ -94,11 +94,6 @@ class OnboardingViewController: UIViewController {
     private func setupNavigationBar() {
         let rightButton = UIBarButtonItem(customView: settingButton)
         let leftButton = UIBarButtonItem(customView: questionBotton)
-        let backButtonImage = UIImage(named: "BackIcon")?.withRenderingMode(.alwaysOriginal)
-        navigationItem.hidesBackButton = true
-        navigationController?.navigationBar.backIndicatorImage = backButtonImage
-        navigationController?.navigationBar.backIndicatorTransitionMaskImage = backButtonImage
-        navigationItem.backButtonTitle = ""
         navigationItem.rightBarButtonItem = rightButton
         navigationItem.leftBarButtonItem = leftButton
     }
