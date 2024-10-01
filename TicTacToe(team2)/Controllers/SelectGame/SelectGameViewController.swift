@@ -60,8 +60,8 @@ class SelectGameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(named: "background")
         setupUI()
+        view.backgroundColor = UIColor(named: "background")
     }
     
     private func setupUI() {
@@ -77,13 +77,7 @@ class SelectGameViewController: UIViewController {
     
     private func setupNavigationBar() {
         let settingButton = UIBarButtonItem(customView: settingButton)
-        let backButtonImage = UIImage(named: "BackIcon")
         navigationItem.rightBarButtonItem = settingButton
-        navigationItem.hidesBackButton = true
-        navigationController?.navigationBar.backIndicatorImage = backButtonImage
-        navigationController?.navigationBar.backIndicatorTransitionMaskImage = backButtonImage
-        navigationItem.backButtonTitle = ""
-        
     }
     
     private func setupConstraints() {
@@ -123,6 +117,5 @@ class SelectGameViewController: UIViewController {
     
 }
 
-#Preview {
-    SelectGameViewController()
+
 }
