@@ -24,6 +24,7 @@ Pods/
 ## User settings
 xcuserdata/
 .DS_Store
+*.xcuserstate
 
 
 ## compatibility with Xcode 8 and earlier (ignoring not required starting Xcode 9)
@@ -145,3 +146,4 @@ xcuserdata
 
 
 # End of https://www.toptal.com/developers/gitignore/api/swift,swiftpackagemanager,objective-c,cocoapods,carthage
+*.xcuserstate
