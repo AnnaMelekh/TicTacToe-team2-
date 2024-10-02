@@ -16,6 +16,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         window = UIWindow(windowScene: windowScene)
+        
+        let backButtonImage = UIImage(named: "BackIcon")?.withRenderingMode(.alwaysOriginal)
+        
+        UINavigationBar.appearance().backIndicatorImage = backButtonImage
+        UINavigationBar.appearance().backIndicatorTransitionMaskImage = backButtonImage
+        UIBarButtonItem.appearance().setBackButtonTitlePositionAdjustment(
+            UIOffset(
+                horizontal: -1000,
+                vertical: 0
+            ),
+            for: .default
+        )
+        
         window?.rootViewController = UINavigationController(rootViewController: OnboardingViewController())
         window?.makeKeyAndVisible()
     }
