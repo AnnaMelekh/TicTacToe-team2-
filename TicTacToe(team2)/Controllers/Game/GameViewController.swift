@@ -269,5 +269,5 @@ class GameViewController: UIViewController {
         
         return label
     }
+
 }
-#Preview { GameViewController() }
