@@ -148,4 +148,3 @@ xcuserdata
 # End of https://www.toptal.com/developers/gitignore/api/swift,swiftpackagemanager,objective-c,cocoapods,carthage
 *.xcuserstate
 TicTacToe(team2).xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
-.DS_Store
