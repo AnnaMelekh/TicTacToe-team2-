@@ -24,7 +24,6 @@ class GameViewController: UIViewController {
 
         topStack = createTopStack()
 
-        createTopStack()
         currentTurnStack = createTurnStack(image: ticTacModel.getTurnImage())
 
         field = createField()
@@ -143,7 +142,7 @@ class GameViewController: UIViewController {
     }
 
     // MARK: creating top stack of 3 views
-    private func createTopStack() {
+    private func createTopStack() -> UIStackView {
         let hStack = UIStackView()
         hStack.widthAnchor.constraint(equalToConstant: 330).isActive = true
         hStack.heightAnchor.constraint(equalToConstant: 103).isActive = true
@@ -164,10 +163,11 @@ class GameViewController: UIViewController {
             hStack.topAnchor.constraint(greaterThanOrEqualToSystemSpacingBelow: view.safeAreaLayoutGuide.topAnchor, multiplier: 0.5),
             hStack.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
+        return hStack
     }
 
     // Middle Stack with Turn label & icon
-    private func createTurnStack(image: UIImage) {
+    private func createTurnStack(image: UIImage) -> UIStackView {
         let hStack = UIStackView()
         hStack.widthAnchor.constraint(equalToConstant: 221).isActive = true
         hStack.heightAnchor.constraint(equalToConstant: 53).isActive = true
@@ -198,6 +198,7 @@ class GameViewController: UIViewController {
             hStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             hStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -105)
         ])
+        return hStack
     }
 
     private func createView() -> UIView {
