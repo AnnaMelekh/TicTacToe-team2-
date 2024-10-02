@@ -1,0 +1,5 @@
+*.xcuserstate
+*.plist
+TicTacToe(team2)/Sources/.DS_Store
+TicTacToe(team2)/.DS_Store
+.DS_Store
