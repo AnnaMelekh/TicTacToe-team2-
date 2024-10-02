@@ -14,6 +14,8 @@
 		15991A4B2CAA0AC600B6CDE8 /* HowToPlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15991A4A2CAA0ABC00B6CDE8 /* HowToPlayViewController.swift */; };
 		15991A4F2CAA0B1000B6CDE8 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15991A4E2CAA0B0500B6CDE8 /* ResultViewController.swift */; };
 		15991A512CAA0B2A00B6CDE8 /* LeaderboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15991A502CAA0B1B00B6CDE8 /* LeaderboardViewController.swift */; };
+		15991A6F2CAD345500B6CDE8 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15991A6E2CAD345500B6CDE8 /* Settings.swift */; };
+		15991A712CAD385000B6CDE8 /* SkinCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15991A702CAD385000B6CDE8 /* SkinCell.swift */; };
 		F306EADF2CA9AF8000092870 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F306EADE2CA9AF8000092870 /* AppDelegate.swift */; };
 		F306EAE12CA9AF8000092870 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F306EAE02CA9AF8000092870 /* SceneDelegate.swift */; };
 		F306EAE32CA9AF8000092870 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F306EAE22CA9AF8000092870 /* OnboardingViewController.swift */; };
@@ -27,6 +29,8 @@
 		15991A4A2CAA0ABC00B6CDE8 /* HowToPlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToPlayViewController.swift; sourceTree = "<group>"; };
 		15991A4E2CAA0B0500B6CDE8 /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 		15991A502CAA0B1B00B6CDE8 /* LeaderboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardViewController.swift; sourceTree = "<group>"; };
+		15991A6E2CAD345500B6CDE8 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Settings.swift; path = "TicTacToe(team2)/Settings.swift"; sourceTree = SOURCE_ROOT; };
+		15991A702CAD385000B6CDE8 /* SkinCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkinCell.swift; sourceTree = "<group>"; };
 		F306EADB2CA9AF8000092870 /* TicTacToe(team2).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TicTacToe(team2).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F306EADE2CA9AF8000092870 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F306EAE02CA9AF8000092870 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -89,6 +93,7 @@
 		15991A3C2CAA067000B6CDE8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				15991A6E2CAD345500B6CDE8 /* Settings.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -112,6 +117,7 @@
 		15991A3F2CAA081500B6CDE8 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				15991A6D2CAD33FC00B6CDE8 /* SkinCell */,
 				15991A462CAA0A6100B6CDE8 /* SettingsViewController.swift */,
 			);
 			path = Settings;
@@ -147,6 +153,14 @@
 				15991A502CAA0B1B00B6CDE8 /* LeaderboardViewController.swift */,
 			);
 			path = Leaderboard;
+			sourceTree = "<group>";
+		};
+		15991A6D2CAD33FC00B6CDE8 /* SkinCell */ = {
+			isa = PBXGroup;
+			children = (
+				15991A702CAD385000B6CDE8 /* SkinCell.swift */,
+			);
+			path = SkinCell;
 			sourceTree = "<group>";
 		};
 		F306EAD22CA9AF8000092870 = {
@@ -253,7 +267,9 @@
 				F306EADF2CA9AF8000092870 /* AppDelegate.swift in Sources */,
 				15991A452CAA0A3400B6CDE8 /* SelectGameViewController.swift in Sources */,
 				15991A4F2CAA0B1000B6CDE8 /* ResultViewController.swift in Sources */,
+				15991A6F2CAD345500B6CDE8 /* Settings.swift in Sources */,
 				15991A512CAA0B2A00B6CDE8 /* LeaderboardViewController.swift in Sources */,
+				15991A712CAD385000B6CDE8 /* SkinCell.swift in Sources */,
 				15991A4B2CAA0AC600B6CDE8 /* HowToPlayViewController.swift in Sources */,
 				15991A472CAA0A6A00B6CDE8 /* SettingsViewController.swift in Sources */,
 				15991A492CAA0AAE00B6CDE8 /* GameViewController.swift in Sources */,
