@@ -57,14 +57,21 @@ private extension SkinCell {
         let view = UIView()
         view.backgroundColor = .white
         view.layer.cornerRadius = 30
+        view.layer.shadowColor = UIColor(red: 0.604, green: 0.624, blue: 0.765, alpha: 0.3).cgColor
+        view.layer.shadowOpacity = 1
+        view.layer.shadowRadius = 30
+        view.layer.shadowOffset = CGSize(width: 4, height: 4)
+        
         let xStackView = UIStackView(arrangedSubviews: [xSkinImageView, oSkinImageView])
         xStackView.axis = .horizontal
         xStackView.spacing = UIConstants.xStackSpacing
         xStackView.distribution = .fillEqually
+        
         let yStackView = UIStackView(arrangedSubviews: [xStackView, selectButton])
         yStackView.axis = .vertical
         yStackView.spacing = UIConstants.yStackSpacing
         yStackView.distribution = .fillEqually
+        
         contentView.addSubview(view)
         view.addSubview(yStackView)
         
@@ -74,6 +81,10 @@ private extension SkinCell {
         
         yStackView.snp.makeConstraints { make in
             make.edges.equalTo(view).inset(UIConstants.yStackViewEdgeInsets)
+        }
+        
+        xStackView.snp.makeConstraints { make in
+            make.height.equalTo(yStackView.bounds.height)
         }
     }
 }

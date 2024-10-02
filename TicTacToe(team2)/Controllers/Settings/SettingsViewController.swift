@@ -23,10 +23,29 @@ class SettingsViewController: UIViewController {
     
     private var skinsCollectionView: UICollectionView!
     
-    private enum UIConstants {
-        static let skinCellWidth: CGFloat = 150
-        static let skinCellHeight: CGFloat = 150
+    private lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.backgroundColor = .white
+        scrollView.frame = view.bounds
+        scrollView.contentSize = contentSize
+        return scrollView
+    }()
+    
+    private var contentSize: CGSize {
+        CGSize(width: view.frame.width, height: view.frame.height * 2)
     }
+    
+    private lazy var contentView: UIView = {
+        let contentView = UIView()
+        contentView.backgroundColor = .white
+        contentView.frame.size = contentSize
+        return contentView
+    }()
+    
+//    private enum UIConstants {
+//        static let skinCellWidth: CGFloat = view.frame.width / 3
+//        static let skinCellHeight: CGFloat = view.frame.width / 3
+//    }
     
     private var skins: [Skin] = [
         Skin(oSkin: "Oskin1", xSkin: "Xskin1"),
@@ -56,33 +75,45 @@ private extension SettingsViewController {
         
         skinsCollectionView =  UICollectionView(frame: .zero, collectionViewLayout: createLayoutForCollection())
         skinsCollectionView.register(SkinCell.self, forCellWithReuseIdentifier: String(describing: SkinCell.self))
+        skinsCollectionView.isScrollEnabled = false
         skinsCollectionView.backgroundColor = .clear
         skinsCollectionView.dataSource = self
         skinsCollectionView.delegate = self
         
-        view.addSubview(skinsCollectionView)
+
         
         
-//        let yStackView = UIStackView(arrangedSubviews: [gameTimeSwitch, gameTimeLabel])
-//        
-//        yStackView.axis = .vertical
-//        yStackView.alignment = .center
-//        yStackView.spacing = 20
+        
+        let yStackView = UIStackView(arrangedSubviews: [gameTimeSwitch, gameTimeLabel])
+        
+        yStackView.axis = .vertical
+        yStackView.alignment = .center
+        yStackView.spacing = 20
 //        view.addSubview(yStackView)
 //        view.addSubview(skinsCollectionView)
-//        
-//        yStackView.snp.makeConstraints { make in
-//            make.leading.trailing.equalToSuperview().inset(20)
-//            make.top.equalTo(view.snp.top)
-//            make.height.equalTo(100)
-//        }
-        skinsCollectionView.snp.makeConstraints { make in
-                make.top.equalToSuperview().offset(232)
-                make.leading.equalToSuperview()
-                make.trailing.equalToSuperview()
-                make.bottom.equalToSuperview().offset(-96)
-            
+        
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        contentView.addSubview(yStackView)
+        contentView.addSubview(skinsCollectionView)
+        
+        yStackView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(20)
+            make.top.equalToSuperview().offset(100)
+//            make.height.equalTo()
         }
+//        skinsCollectionView.snp.makeConstraints { make in
+//                make.top.equalToSuperview().offset(232)
+//            make.leading.trailing.equalToSuperview()
+//                make.bottom.equalToSuperview().offset(-96)
+//            
+//        }
+        skinsCollectionView.snp.makeConstraints{ make in
+            make.top.equalTo(yStackView.snp.bottom).offset(10)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(view.frame.height + 20)
+        }
+            
     }
     
     private func createLayoutForCollection() -> UICollectionViewFlowLayout {
@@ -95,9 +126,8 @@ private extension SettingsViewController {
         let widthPerItem = availableWidth / itemsPerRow
         layout.minimumLineSpacing = basicSpacing
         layout.minimumInteritemSpacing = basicSpacing
-        layout.sectionInset = UIEdgeInsets(top: 0, left: basicSpacing, bottom: 0, right: basicSpacing)
-        layout.scrollDirection = .vertical
-        layout.itemSize = CGSize(width: UIConstants.skinCellWidth, height: UIConstants.skinCellHeight)
+        layout.sectionInset = UIEdgeInsets(top: basicSpacing, left: basicSpacing, bottom: 0, right: basicSpacing)
+        layout.itemSize = CGSize(width: widthPerItem, height: widthPerItem)
         return layout
     }
 }
