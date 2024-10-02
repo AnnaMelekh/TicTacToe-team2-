@@ -6,21 +6,24 @@
 //
 
 import UIKit
-import SnapKit
 
 class GameViewController: UIViewController {
     
     var field: UIView!
+    var currentTurnStack: UIView!
+    var currentTurnIcon: UIImage?
+    var topStack: UIView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "background")
         
+        topStack = createTopStack()
+
+        currentTurnStack = createTurnStack(image: UIImage(named: "Oskin1")!)
+        
         field = createField()
 
-        createTopStack()
-        createTurnStack(image: UIImage(named: "Oskin1")!)
-        
         field.addSubview(createVStackButtons())
 
         
@@ -47,10 +50,10 @@ class GameViewController: UIViewController {
         field.addSubview(vStack)
 
         NSLayoutConstraint.activate([
-            vStack.topAnchor.constraint(equalTo: field.topAnchor, constant: 15),
-            vStack.leadingAnchor.constraint(equalTo: field.leadingAnchor, constant: 15),
-            vStack.trailingAnchor.constraint(equalTo: field.trailingAnchor, constant: -15),
-            vStack.bottomAnchor.constraint(equalTo: field.bottomAnchor, constant: -15),
+            vStack.topAnchor.constraint(lessThanOrEqualToSystemSpacingBelow: field.topAnchor, multiplier: 0.5),
+            vStack.centerXAnchor.constraint(equalToSystemSpacingAfter: field.centerXAnchor, multiplier: 0.5),
+//            vStack.trailingAnchor.constraint(equalToSystemSpacingAfter: field.trailingAnchor, multiplier: 0.5),
+            vStack.bottomAnchor.constraint(lessThanOrEqualToSystemSpacingBelow: field.bottomAnchor, multiplier: 0.5),
         ])
         
         return vStack
@@ -67,16 +70,14 @@ class GameViewController: UIViewController {
         field.layer.shadowOpacity = 1
         field.layer.shadowOffset = CGSize(width: 0, height: 0)
         field.layer.borderColor = UIColor(named: "blue")?.cgColor
-        field.widthAnchor.constraint(equalToConstant: 280).isActive = true
-        field.heightAnchor.constraint(equalToConstant: 280).isActive = true
+        field.widthAnchor.constraint(equalToConstant: 300).isActive = true
+        field.heightAnchor.constraint(equalToConstant: 300).isActive = true
         
         view.addSubview(field)
         
-        field.topAnchor.constraint(equalTo: view.topAnchor, constant: 370).isActive = true
-        field.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40).isActive = true
-        field.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40).isActive = true
-        field.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -175).isActive = true
-            
+        field.topAnchor.constraint(lessThanOrEqualTo: currentTurnStack.bottomAnchor, constant: 50).isActive = true
+        field.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+
         return field
         
     }
@@ -116,7 +117,7 @@ class GameViewController: UIViewController {
     }
     
     // MARK: creating top stack of 3 views
-    private func createTopStack() {
+    private func createTopStack() -> UIStackView {
         let hStack = UIStackView()
         hStack.widthAnchor.constraint(equalToConstant: 330).isActive = true
         hStack.heightAnchor.constraint(equalToConstant: 103).isActive = true
@@ -134,20 +135,21 @@ class GameViewController: UIViewController {
         hStack.addArrangedSubview(createContent(item: createView(), image: UIImage(named: "Oskin1")!, title: "Player 2"))
         
         NSLayoutConstraint.activate([
-            hStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
-            hStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
-            hStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
-            hStack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -500),
+            hStack.topAnchor.constraint(greaterThanOrEqualToSystemSpacingBelow: view.safeAreaLayoutGuide.topAnchor, multiplier: 0.5),
+            hStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//            hStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
+//            hStack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -500),
         ])
+        return hStack
     }
     
     // Middle Stack with Turn label & icon
-    private func createTurnStack(image: UIImage) {
+    private func createTurnStack(image: UIImage) -> UIStackView {
         let hStack = UIStackView()
         hStack.widthAnchor.constraint(equalToConstant: 221).isActive = true
         hStack.heightAnchor.constraint(equalToConstant: 53).isActive = true
         hStack.axis = .horizontal
-        hStack.spacing = 20
+        hStack.spacing = 15
         hStack.distribution = .fill
         hStack.alignment = .center
         hStack.translatesAutoresizingMaskIntoConstraints = false
@@ -169,11 +171,12 @@ class GameViewController: UIViewController {
         
         
         NSLayoutConstraint.activate([
-            hStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 240),
-            hStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 105),
+            hStack.topAnchor.constraint(equalTo: topStack.bottomAnchor, constant: 50),
+            hStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             hStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -105),
-            hStack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -500),
+//            hStack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -500),
         ])
+        return hStack
     }
     
     private func createView() -> UIView {
@@ -198,7 +201,7 @@ class GameViewController: UIViewController {
         card.heightAnchor.constraint(equalToConstant: 100).isActive = true
         
         let timer = UILabel()
-        timer.text = "00:00"
+        timer.text = "00:00" //currentTurn
         timer.translatesAutoresizingMaskIntoConstraints = false
         timer.textColor = .black
         timer.font = UIFont.systemFont(ofSize: 20, weight: .bold)
@@ -206,8 +209,8 @@ class GameViewController: UIViewController {
         card.addSubview(timer)
         NSLayoutConstraint.activate([
             timer.topAnchor.constraint(equalTo: card.topAnchor, constant: 10),
-            timer.leadingAnchor.constraint(equalTo: card.leadingAnchor, constant: 20),
-            timer.trailingAnchor.constraint(equalTo: card.trailingAnchor, constant: -10),
+            timer.centerXAnchor.constraint(equalTo: card.centerXAnchor),
+//            timer.trailingAnchor.constraint(equalTo: card.trailingAnchor, constant: -10),
             timer.bottomAnchor.constraint(equalTo: card.bottomAnchor, constant: -10),
         ])
         
