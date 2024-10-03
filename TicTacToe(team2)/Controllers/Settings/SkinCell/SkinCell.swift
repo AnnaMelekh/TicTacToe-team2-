@@ -13,10 +13,16 @@ class SkinCell: UICollectionViewCell {
     func configure(with skin: Skin) {
         xSkinImageView.image = UIImage(named: skin.xSkin)
         oSkinImageView.image = UIImage(named: skin.oSkin)
+        if skin.isChecked {
+            selectButton.isHidden = false
+        } else {
+            selectButton.isHidden = true
+        }
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         setupView()
     }
     
@@ -26,20 +32,40 @@ class SkinCell: UICollectionViewCell {
     
     private let xSkinImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
     private let oSkinImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
-    private let selectButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Choose", for: .normal)
-        button.setTitle("Picked", for: .selected)
-        button.setTitleColor(.black, for: .normal)
-        return button
+//    lazy var selectButton: UIButton = {
+//        let button = UIButton()
+//        switch button.state {
+//        case .normal:
+//            button.backgroundColor = UIColor(named: "gray")
+//        case .selected:
+//            button.backgroundColor = UIColor(named: "purple")
+//        default: break
+//        }
+//        button.layer.cornerRadius = 30
+//        button.setTitle("Choose", for: .normal)
+//        button.setTitleColor(.black, for: .normal)
+//        button.setTitle("Picked", for: .selected)
+//        button.setTitleColor(.white, for: .selected)
+//        return button
+//    }()
+    
+    lazy var selectButton: UILabel = {
+        let label = UILabel()
+        label.text = "Choose"
+        label.textColor = .black
+        label.font = .systemFont(ofSize: 16, weight: .semibold)
+        label.textAlignment = .center
+        return label
     }()
     
     private enum UIConstants {
@@ -48,19 +74,13 @@ class SkinCell: UICollectionViewCell {
         static let yStackViewEdgeInsets: CGFloat = 20
         
     }
-    
+        
 }
 
 private extension SkinCell {
     func setupView() {
         
-        let view = UIView()
-        view.backgroundColor = .white
-        view.layer.cornerRadius = 30
-        view.layer.shadowColor = UIColor(red: 0.604, green: 0.624, blue: 0.765, alpha: 0.3).cgColor
-        view.layer.shadowOpacity = 1
-        view.layer.shadowRadius = 30
-        view.layer.shadowOffset = CGSize(width: 4, height: 4)
+        let view = ViewFactory.createShadowView()
         
         let xStackView = UIStackView(arrangedSubviews: [xSkinImageView, oSkinImageView])
         xStackView.axis = .horizontal
@@ -87,6 +107,10 @@ private extension SkinCell {
             make.height.equalTo(yStackView.bounds.height)
         }
     }
+    
+    
 }
+
+
 
 #Preview { SettingsViewController()}

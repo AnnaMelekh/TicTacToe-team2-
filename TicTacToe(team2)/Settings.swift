@@ -15,5 +15,8 @@ struct Settings: Codable {
 
 struct Skin: Codable {
     var oSkin: String
-    let xSkin: String
+    var xSkin: String
+    var isChecked: Bool = false
 }
+
+

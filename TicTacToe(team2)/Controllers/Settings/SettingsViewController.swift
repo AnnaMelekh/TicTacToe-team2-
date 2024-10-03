@@ -9,6 +9,9 @@ import UIKit
 
 class SettingsViewController: UIViewController {
     
+    var checkedSkin: Int = 0
+    
+    
     private lazy var gameTimeSwitch: UISwitch = {
         let switchView = UISwitch()
         switchView.isOn = true
@@ -70,6 +73,7 @@ class SettingsViewController: UIViewController {
 
 
 private extension SettingsViewController {
+    
     func setupUI() {
         view.backgroundColor = UIColor(named: "background")
         
@@ -89,8 +93,6 @@ private extension SettingsViewController {
         yStackView.axis = .vertical
         yStackView.alignment = .center
         yStackView.spacing = 20
-//        view.addSubview(yStackView)
-//        view.addSubview(skinsCollectionView)
         
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
@@ -100,14 +102,7 @@ private extension SettingsViewController {
         yStackView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(20)
             make.top.equalToSuperview().offset(100)
-//            make.height.equalTo()
         }
-//        skinsCollectionView.snp.makeConstraints { make in
-//                make.top.equalToSuperview().offset(232)
-//            make.leading.trailing.equalToSuperview()
-//                make.bottom.equalToSuperview().offset(-96)
-//            
-//        }
         skinsCollectionView.snp.makeConstraints{ make in
             make.top.equalTo(yStackView.snp.bottom).offset(10)
             make.leading.trailing.equalToSuperview()
@@ -139,12 +134,25 @@ extension SettingsViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: SkinCell.self), for: indexPath) as! SkinCell
         let skin = skins[indexPath.item]
         cell.configure(with: skin)
         return cell
     }
-}
+    
+    
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        for index in 0..<skins.count {
+            skins[index].isChecked = false
+        }
+        skins[indexPath.item].isChecked = true
+        checkedSkin = indexPath.item
+        print(checkedSkin)
+        skinsCollectionView.reloadData()
+    }
+    }
 
 extension SettingsViewController: UICollectionViewDelegateFlowLayout {
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
