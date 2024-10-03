@@ -115,6 +115,7 @@ class LeaderboardViewController: UIViewController {
     private func setupDataUI() {
         lazy var tableView: UITableView = {
             let tableView = UITableView()
+            tableView.backgroundColor = UIColor(named: "background")
             
             tableView.translatesAutoresizingMaskIntoConstraints = false
             //tableView.backgroundColor = UIColor(named: "lightBlue")
@@ -159,7 +160,7 @@ extension LeaderboardViewController: UITableViewDelegate, UITableViewDataSource 
         }
         
         let time = self.testArray[indexPath.row]
-        
+        cell.backgroundColor = UIColor(named: "background")
         //устанавливаю все ячейки одинаковыми
         cell.configure(with: String(indexPath.row + 1), and: "Time \(time)")
         
