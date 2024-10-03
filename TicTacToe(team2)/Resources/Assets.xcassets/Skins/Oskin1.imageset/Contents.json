@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Oskin1.png",
+      "filename" : "Oskin1.svg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Oskin1@2x.png",
+      "filename" : "Oskin1 1.svg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Oskin1@3x.png",
+      "filename" : "Oskin1 2.svg",
       "idiom" : "universal",
       "scale" : "3x"
     }

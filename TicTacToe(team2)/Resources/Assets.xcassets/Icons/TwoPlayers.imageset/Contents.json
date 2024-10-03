@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "TwoPlayers.png",
+      "filename" : "Capa_1.svg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "TwoPlayers@2x.png",
+      "filename" : "Capa_1 1.svg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "TwoPlayers@3x.png",
+      "filename" : "Capa_1 2.svg",
       "idiom" : "universal",
       "scale" : "3x"
     }
