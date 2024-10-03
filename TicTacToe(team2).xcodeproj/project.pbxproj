@@ -15,6 +15,7 @@
 		15991A4F2CAA0B1000B6CDE8 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15991A4E2CAA0B0500B6CDE8 /* ResultViewController.swift */; };
 		15991A512CAA0B2A00B6CDE8 /* LeaderboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15991A502CAA0B1B00B6CDE8 /* LeaderboardViewController.swift */; };
 		37FC99E12CADE0C800A25B11 /* LeaderboardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FC99E02CADE0C800A25B11 /* LeaderboardCell.swift */; };
+		DDE4C6E82CAD4ABF007CED8D /* TicTacModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE4C6E72CAD4ABF007CED8D /* TicTacModel.swift */; };
 		F306EADF2CA9AF8000092870 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F306EADE2CA9AF8000092870 /* AppDelegate.swift */; };
 		F306EAE12CA9AF8000092870 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F306EAE02CA9AF8000092870 /* SceneDelegate.swift */; };
 		F306EAE32CA9AF8000092870 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F306EAE22CA9AF8000092870 /* OnboardingViewController.swift */; };
@@ -29,6 +30,7 @@
 		15991A4E2CAA0B0500B6CDE8 /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 		15991A502CAA0B1B00B6CDE8 /* LeaderboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardViewController.swift; sourceTree = "<group>"; };
 		37FC99E02CADE0C800A25B11 /* LeaderboardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardCell.swift; sourceTree = "<group>"; };
+		DDE4C6E72CAD4ABF007CED8D /* TicTacModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TicTacModel.swift; path = "TicTacToe(team2)/Resources/Assets.xcassets/Skins/xOskin.imageset/TicTacModel.swift"; sourceTree = SOURCE_ROOT; };
 		F306EADB2CA9AF8000092870 /* TicTacToe(team2).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TicTacToe(team2).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F306EADE2CA9AF8000092870 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F306EAE02CA9AF8000092870 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 		15991A3C2CAA067000B6CDE8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				DDE4C6E72CAD4ABF007CED8D /* TicTacModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -262,6 +265,7 @@
 				15991A472CAA0A6A00B6CDE8 /* SettingsViewController.swift in Sources */,
 				15991A492CAA0AAE00B6CDE8 /* GameViewController.swift in Sources */,
 				F306EAE12CA9AF8000092870 /* SceneDelegate.swift in Sources */,
+				DDE4C6E82CAD4ABF007CED8D /* TicTacModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

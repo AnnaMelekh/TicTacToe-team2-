@@ -103,7 +103,6 @@ class SelectGameViewController: UIViewController {
         }
         
         selectLabel.snp.makeConstraints { make in
-//            make.height.equalTo(twoPlayersButton.snp.height).multipliedBy(1)
         }
     }
     
