@@ -73,8 +73,6 @@ class GameViewController: UIViewController {
         field.layer.shadowRadius = 10.0
         field.layer.shadowOpacity = 1
         field.layer.shadowOffset = CGSize(width: 0, height: 0)
-        field.layer.borderColor = UIColor(named: "blue")?.cgColor
-        
         field.widthAnchor.constraint(equalToConstant: 300).isActive = true
         field.heightAnchor.constraint(equalToConstant: 300).isActive = true
         

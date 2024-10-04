@@ -26,6 +26,12 @@ class SelectGameViewController: UIViewController {
         $0.distribution = .fillEqually
         $0.spacing = 15
         $0.alignment = .center
+        
+        $0.layer.shadowColor = UIColor(named: "lightBlue")?.cgColor
+        $0.layer.shadowRadius = 10.0
+        $0.layer.shadowOpacity = 1
+        $0.layer.shadowOffset = CGSize(width: 0, height: 0)
+        
         return $0
     }(UIStackView())
     
@@ -82,8 +88,10 @@ class SelectGameViewController: UIViewController {
         button.backgroundColor = UIColor(named: "lightBlue")
         button.layer.cornerRadius = 30
         button.setTitleColor(.black, for: .normal)
-        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -10, bottom: 0, right: 10)
         button.setImage(UIImage(named: imageName)?.withRenderingMode(.alwaysOriginal), for: .normal)
+        button.configuration = .borderless()
+        button.configuration?.imagePadding = 10
+
         button.addTarget(self, action: #selector(goToSomeVC(_:)), for: .touchUpInside)
         
         return button
