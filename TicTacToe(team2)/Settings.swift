@@ -7,6 +7,7 @@
 
 import Foundation
 
+
 struct Settings: Codable {
     var isGameTimeEnabled: Bool
     var gameTime: Int
@@ -18,5 +19,6 @@ struct Skin: Codable {
     var xSkin: String
     var isChecked: Bool = false
 }
+
 
 
