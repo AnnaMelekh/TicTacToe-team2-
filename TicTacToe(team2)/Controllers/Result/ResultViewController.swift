@@ -52,8 +52,13 @@ class ResultViewController: UIViewController {
         label.font = .systemFont(ofSize: 20, weight: .bold)
         label.textAlignment = .center
         
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = UIColor(named: "blue")
+        backgroundView.layer.cornerRadius = 150
+        backgroundView.addSubview(imageView)
+        
 // create ResultstackView (label + image)
-        let resultStackView = UIStackView(arrangedSubviews: [label, imageView])
+        let resultStackView = UIStackView(arrangedSubviews: [label, backgroundView])
         resultStackView.axis = .vertical
         resultStackView.spacing = 20
         resultStackView.alignment = .center
@@ -90,13 +95,18 @@ class ResultViewController: UIViewController {
 
         resultStackView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(160)
-        }
+            make.centerY.equalToSuperview().offset(-50)
+                }
         
 
         imageView.snp.makeConstraints { make in
-            make.width.height.equalTo(228)
+            make.width.height.equalTo(220)
+            make.edges.equalToSuperview().inset(50)
         }
+        
+        backgroundView.snp.makeConstraints { make in
+                    make.width.height.equalTo(300)
+                }
         
 
         buttonStackView.snp.makeConstraints { make in
@@ -156,6 +166,5 @@ class ResultViewController: UIViewController {
 
 
 #Preview { ResultViewController(result: .win) }
-#Preview { ResultViewController(result: .lose) }
-#Preview { ResultViewController(result: .draw) }
+
 
