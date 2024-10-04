@@ -140,7 +140,7 @@ class GameViewController: UIViewController {
             sender.setImage(UIImage(named: imageName), for: .normal)
             icon?.image = ticTacModel.getTurnImage()
             if let winCombo = ticTacModel.checkWin(completion: {
-                let VC = ResultViewController()
+                let VC = ResultViewController(result: .win)
                 self.navigationController?.pushViewController(VC, animated: true)
             }) {
                 drawWinningLine(for: winCombo)

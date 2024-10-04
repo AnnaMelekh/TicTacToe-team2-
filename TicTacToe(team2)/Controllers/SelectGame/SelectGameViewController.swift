@@ -111,7 +111,7 @@ class SelectGameViewController: UIViewController {
         if sender == settingButton {
             pushViewController(SettingsViewController())
         } else if sender == singleButton || sender == twoPlayersButton {
-            pushViewController(GameViewController())
+            pushViewController(SinglePlayerViewController())
         }
     }
     
