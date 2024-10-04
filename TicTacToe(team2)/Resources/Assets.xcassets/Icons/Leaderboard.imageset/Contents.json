@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Isolation_Mode.png",
+      "filename" : "Isolation_Mode.svg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Isolation_Mode 1.png",
+      "filename" : "Isolation_Mode 1.svg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Isolation_Mode 2.png",
+      "filename" : "Isolation_Mode 2.svg",
       "idiom" : "universal",
       "scale" : "3x"
     }
