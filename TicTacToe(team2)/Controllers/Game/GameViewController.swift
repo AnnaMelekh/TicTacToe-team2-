@@ -17,6 +17,7 @@ class GameViewController: UIViewController {
     var currentTurnStack: UIView!
     var currentTurnIcon: UIImage?
     var topStack: UIView!
+    var buttonsCoordinate: [Int : CGPoint] = [:]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +29,6 @@ class GameViewController: UIViewController {
 
         field = createField()
         field.addSubview(createVStackButtons())
-
 
     }
 
@@ -99,7 +99,6 @@ class GameViewController: UIViewController {
         hStack.alignment = .center
         hStack.translatesAutoresizingMaskIntoConstraints = false
         
-
         if row == 1 {
             for i in 0..<3 {
                 hStack.addArrangedSubview(createButton(index: i))
@@ -127,6 +126,7 @@ class GameViewController: UIViewController {
         button.tag = index
         button.addTarget(self, action: #selector(buttonPress(_:)), for: .touchUpInside)
         view.addSubview(button)
+
         return button
 
     }
@@ -134,10 +134,17 @@ class GameViewController: UIViewController {
     @objc
     private func buttonPress(_ sender: UIButton) {
         let index = sender.tag
+        buttonsCoordinate[index] = sender.convert(sender.bounds.origin, to: view)
         if ticTacModel.makeMove(index: index) {
             let imageName = ticTacModel.isOTurn ? "Xskin1" : "Oskin1"
             sender.setImage(UIImage(named: imageName), for: .normal)
             icon?.image = ticTacModel.getTurnImage()
+            if let winCombo = ticTacModel.checkWin(completion: {
+                let VC = ResultViewController()
+                self.navigationController?.pushViewController(VC, animated: true)
+            }) {
+                drawWinningLine(for: winCombo)
+            }
         }
     }
 
@@ -289,6 +296,30 @@ class GameViewController: UIViewController {
 
         return label
     }
+    
+    func drawWinningLine(for combination: [Int]) {
+               guard let startButton = buttonsCoordinate[combination[0]],
+                        let endButton = buttonsCoordinate[combination[2]] else { return }
+            
+            let weight: CGFloat = 40
+            let startX = startButton.x + weight
+                let startY = startButton.y + weight
+                
+                let endX = endButton.x + weight
+                let endY = endButton.y + weight
+            
+            
+                let linePath = UIBezierPath()
+            linePath.move(to: CGPoint(x: startX, y: startY))
+            linePath.addLine(to: CGPoint(x: endX, y: endY))
+                
+                let lineLayer = CAShapeLayer()
+                lineLayer.path = linePath.cgPath
+                lineLayer.strokeColor = UIColor.black.cgColor
+                lineLayer.lineWidth = 5.0
+                view.layer.addSublayer(lineLayer)
+            }
 
-}
+    }
+    
 #Preview { GameViewController() }
