@@ -14,9 +14,13 @@ class SkinCell: UICollectionViewCell {
         xSkinImageView.image = UIImage(named: skin.xSkin)
         oSkinImageView.image = UIImage(named: skin.oSkin)
         if skin.isChecked {
-            selectButton.isHidden = false
+            selectLabel.backgroundColor = UIColor(named: "blue")
+            selectLabel.textColor = .white
+            selectLabel.text = "Picked"
         } else {
-            selectButton.isHidden = true
+            selectLabel.backgroundColor = UIColor(named: "gray")
+            selectLabel.textColor = .black
+            selectLabel.text = "Choose"
         }
     }
     
@@ -32,38 +36,26 @@ class SkinCell: UICollectionViewCell {
     
     private let xSkinImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
     private let oSkinImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
-//    lazy var selectButton: UIButton = {
-//        let button = UIButton()
-//        switch button.state {
-//        case .normal:
-//            button.backgroundColor = UIColor(named: "gray")
-//        case .selected:
-//            button.backgroundColor = UIColor(named: "purple")
-//        default: break
-//        }
-//        button.layer.cornerRadius = 30
-//        button.setTitle("Choose", for: .normal)
-//        button.setTitleColor(.black, for: .normal)
-//        button.setTitle("Picked", for: .selected)
-//        button.setTitleColor(.white, for: .selected)
-//        return button
-//    }()
     
-    lazy var selectButton: UILabel = {
+    lazy var selectLabel: UILabel = {
         let label = UILabel()
         label.text = "Choose"
         label.textColor = .black
-        label.font = .systemFont(ofSize: 16, weight: .semibold)
+        label.font = .systemFont(ofSize: 20, weight: .semibold)
+        label.layer.cornerRadius = 20
+        label.layer.masksToBounds = true
+        label.backgroundColor = UIColor(named: "gray")
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         return label
     }()
@@ -72,6 +64,8 @@ class SkinCell: UICollectionViewCell {
         static let xStackSpacing: CGFloat = 4
         static let yStackSpacing: CGFloat = 18
         static let yStackViewEdgeInsets: CGFloat = 20
+        static let skinToLabelSpacing: CGFloat = 20
+        static let labelHeight: CGFloat = 40
         
     }
         
@@ -87,11 +81,13 @@ private extension SkinCell {
         xStackView.spacing = UIConstants.xStackSpacing
         xStackView.distribution = .fillEqually
         
-        let yStackView = UIStackView(arrangedSubviews: [xStackView, selectButton])
+        
+        let yStackView = UIStackView(arrangedSubviews: [xStackView, selectLabel])
         yStackView.axis = .vertical
         yStackView.spacing = UIConstants.yStackSpacing
-        yStackView.distribution = .fillEqually
+        yStackView.distribution = .fill
         
+        yStackView.distribution = .fill
         contentView.addSubview(view)
         view.addSubview(yStackView)
         
@@ -103,9 +99,10 @@ private extension SkinCell {
             make.edges.equalTo(view).inset(UIConstants.yStackViewEdgeInsets)
         }
         
-        xStackView.snp.makeConstraints { make in
-            make.height.equalTo(yStackView.bounds.height)
+        selectLabel.snp.makeConstraints { make in
+            make.height.equalTo(UIConstants.labelHeight)
         }
+        
     }
     
     
@@ -113,4 +110,4 @@ private extension SkinCell {
 
 
 
-#Preview { SettingsViewController()}
+#Preview{ SettingsViewController()}

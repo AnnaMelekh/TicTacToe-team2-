@@ -20,4 +20,19 @@ class ViewFactory {
         view.layer.borderColor = UIColor(named: "blue")?.cgColor
         return view
     }
+    
+    static func createShadowStackView() -> UIStackView {
+        let view = UIStackView()
+        view.backgroundColor = UIColor(named: "white")
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.cornerRadius = 30
+        view.layer.shadowColor = UIColor(named: "lightBlue")?.cgColor
+        view.layer.shadowRadius = 10.0
+        view.layer.shadowOpacity = 1
+        view.layer.shadowOffset = CGSize(width: 0, height: 0)
+        view.layer.borderColor = UIColor(named: "blue")?.cgColor
+        return view
+    }
 }
+
+
