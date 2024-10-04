@@ -110,7 +110,9 @@ class SelectGameViewController: UIViewController {
     private func goToSomeVC(_ sender: UIButton) {
         if sender == settingButton {
             pushViewController(SettingsViewController())
-        } else if sender == singleButton || sender == twoPlayersButton {
+        } else if sender == singleButton {
+        }
+            else if sender == twoPlayersButton {
             pushViewController(GameViewController())
         }
     }
