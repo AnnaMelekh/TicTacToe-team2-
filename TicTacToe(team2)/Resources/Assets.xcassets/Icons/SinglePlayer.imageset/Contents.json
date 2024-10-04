@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Image.png",
+      "filename" : "Single-Player-Icon.svg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Image@2x.png",
+      "filename" : "Single-Player-Icon 1.svg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Image@3x.png",
+      "filename" : "Single-Player-Icon 2.svg",
       "idiom" : "universal",
       "scale" : "3x"
     }

@@ -11,6 +11,7 @@ import SnapKit
 
 class SelectGameViewController: UIViewController {
     
+    //MARK: - UI elements
     private lazy var settingButton: UIButton = {
         $0.setImage(UIImage(named: "Settings"), for: .normal)
         $0.setImage(UIImage(named: "settingPressed"), for: .highlighted)
@@ -36,45 +37,36 @@ class SelectGameViewController: UIViewController {
     }(UILabel())
     
     private lazy var singleButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Single Player", for: .normal)
-        button.backgroundColor = UIColor(named: "lightBlue")
-        button.layer.cornerRadius = 30
-        button.setImage(UIImage(named: "SinglePlayer")?.withRenderingMode(.alwaysOriginal), for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -10, bottom: 0, right: 10)
-        button.addTarget(self, action: #selector(goToSomeVC(_:)), for: .touchUpInside)
-        return button
+        configureButton(titleName: "Single Player", imageName: "SinglePlayer")
     }()
     
     private lazy var twoPlayersButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Two Players", for: .normal)
-        button.backgroundColor = UIColor(named: "lightBlue")
-        button.layer.cornerRadius = 30
-        button.setImage(UIImage(named: "TwoPlayers")?.withRenderingMode(.alwaysOriginal), for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -10, bottom: 0, right: 10)
-        button.addTarget(self, action: #selector(goToSomeVC(_:)), for: .touchUpInside)
-        return button
+        configureButton(titleName: "Two Players", imageName: "TwoPlayers")
+    }()
+    
+    private lazy var leaderboardButton: UIButton = {
+        configureButton(titleName: "Leaderboard", imageName: "LeaderboardRocket")
     }()
     
     private let spaceView = UIView()
     
+    //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         view.backgroundColor = UIColor(named: "background")
     }
     
+    //MARK: - Private methods
     private func setupUI() {
         view.addSubview(containerStackView)
-        setupNavigationBar()
         containerStackView.addArrangedSubview(selectLabel)
         containerStackView.addArrangedSubview(singleButton)
         containerStackView.addArrangedSubview(twoPlayersButton)
+        containerStackView.addArrangedSubview(leaderboardButton)
         containerStackView.addArrangedSubview(spaceView)
         
+        setupNavigationBar()
         setupConstraints()
     }
     
@@ -84,34 +76,53 @@ class SelectGameViewController: UIViewController {
         navigationItem.hidesBackButton = true
     }
     
+    private func configureButton(titleName: String, imageName: String) -> UIButton {
+        let button = UIButton(type: .system)
+        button.setTitle(titleName, for: .normal)
+        button.backgroundColor = UIColor(named: "lightBlue")
+        button.layer.cornerRadius = 30
+        button.setTitleColor(.black, for: .normal)
+        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -10, bottom: 0, right: 10)
+        button.setImage(UIImage(named: imageName)?.withRenderingMode(.alwaysOriginal), for: .normal)
+        button.addTarget(self, action: #selector(goToSomeVC(_:)), for: .touchUpInside)
+        
+        return button
+    }
+    
     private func setupConstraints() {
+        
         containerStackView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.centerY.equalToSuperview()
             make.width.equalTo(view.snp.width).multipliedBy(0.75)
-            make.height.equalTo(containerStackView.snp.width).multipliedBy(0.85)
+            make.height.equalTo(view.snp.height).multipliedBy(0.4)
         }
         
-        singleButton.snp.makeConstraints { make in
-            make.width.equalToSuperview().multipliedBy(0.87)
-            make.height.equalToSuperview().multipliedBy(0.27)
-        }
+        setupButtonConstraint(button: singleButton)
+        setupButtonConstraint(button: twoPlayersButton)
+        setupButtonConstraint(button: leaderboardButton)
+    }
+    
+    private func setupButtonConstraint(button: UIButton) {
+        let buttonMultiplied = 0.2
         
-        twoPlayersButton.snp.makeConstraints { make in
-            make.width.equalToSuperview().multipliedBy(0.87)
-            make.height.equalToSuperview().multipliedBy(0.27)
-        }
-        
-        selectLabel.snp.makeConstraints { make in
+        button.snp.makeConstraints { make in
+            make.leading.equalTo(containerStackView.snp.leading).inset(20)
+            make.trailing.equalTo(containerStackView.snp.trailing).inset(20)
+            make.height.equalToSuperview().multipliedBy(buttonMultiplied)
         }
     }
     
     @objc
     private func goToSomeVC(_ sender: UIButton) {
-        if sender == settingButton {
-            pushViewController(SettingsViewController())
-        } else if sender == singleButton || sender == twoPlayersButton {
+        switch sender {
+        case settingButton: pushViewController(SettingsViewController())
+        case singleButton, twoPlayersButton:
             pushViewController(GameViewController())
+        case leaderboardButton:
+            pushViewController(LeaderboardViewController())
+        default:
+            print("Unknown button")
         }
     }
     
