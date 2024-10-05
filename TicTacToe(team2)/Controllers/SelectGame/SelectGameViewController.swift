@@ -84,14 +84,18 @@ class SelectGameViewController: UIViewController {
     
     private func configureButton(titleName: String, imageName: String) -> UIButton {
         let button = UIButton(type: .system)
-        button.setTitle(titleName, for: .normal)
+        var config = UIButton.Configuration.borderless()
+        config.title = titleName
+        config.image = UIImage(named: imageName)?.withRenderingMode(.alwaysOriginal)
+        config.imagePadding = 10
+        config.attributedTitle = AttributedString(
+        titleName,
+        attributes: AttributeContainer([.font: UIFont.systemFont(ofSize: 20, weight: .semibold),
+                                        .foregroundColor: UIColor.black])
+        )
+        button.configuration = config
         button.backgroundColor = UIColor(named: "lightBlue")
         button.layer.cornerRadius = 30
-        button.setTitleColor(.black, for: .normal)
-        button.setImage(UIImage(named: imageName)?.withRenderingMode(.alwaysOriginal), for: .normal)
-        button.configuration = .borderless()
-        button.configuration?.imagePadding = 10
-
         button.addTarget(self, action: #selector(goToSomeVC(_:)), for: .touchUpInside)
         
         return button
