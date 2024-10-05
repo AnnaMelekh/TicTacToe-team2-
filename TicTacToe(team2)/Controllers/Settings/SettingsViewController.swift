@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class SettingsViewController: UIViewController {
     
@@ -32,9 +33,12 @@ class SettingsViewController: UIViewController {
         return switchView
     }()
     
+    private var audioPlayer: AVAudioPlayer?
+    
     private lazy var gameMusicSwitch: UISwitch = {
         let switchView = UISwitch()
         switchView.isOn = settings?.isMusicEnabled ?? false
+        switchView.addTarget(self, action: #selector(musicSwitchChanged), for: .valueChanged)
         return switchView
     }()
     
@@ -58,20 +62,48 @@ class SettingsViewController: UIViewController {
         contentView.frame.size = contentSize
         return contentView
     }()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         getSettings()
         setupNavigationBar()
         setupUI()
         setupSwitches()
+        setupAudioPlayer()
+    }
+    
+   //MARK: - Setup Audio Player
+    private func setupAudioPlayer() {
+            guard let musicURL = Bundle.main.url(forResource: "music1", withExtension: "mp3") else {
+                print("Звуковой файл не найден")
+                return
+            }
+            
+            do {
+                audioPlayer = try AVAudioPlayer(contentsOf: musicURL)
+                audioPlayer?.numberOfLoops = -1
+                audioPlayer?.prepareToPlay()
+            } catch {
+                print("Ошибка при инициализации аудиоплеера: \(error.localizedDescription)")
+            }
+        }
         
-
+    private func toggleMusic(_ isOn: Bool) {
+            if isOn {
+                audioPlayer?.play()
+            } else {
+                audioPlayer?.stop()
+            }
+        }
+    
+    @objc private func musicSwitchChanged(_ sender: UISwitch) {
+        toggleMusic(sender.isOn)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         saveSettings(isGameTimeEnabled: gameTimeSwitch.isOn, gameTime: 40, skin: pickedSkin, availableSkins: settings?.availableSkins, isMusicEnabled: gameMusicSwitch.isOn)
     }
+    
 }
     
     
@@ -167,7 +199,7 @@ class SettingsViewController: UIViewController {
                 }
             })
         }
-        
+
         
         func createUpperBlock(title: String, view: UIView) -> UIView {
             let blockView = UIView()
@@ -224,6 +256,7 @@ class SettingsViewController: UIViewController {
             return layout
         }
     }
+
 
 extension SettingsViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     

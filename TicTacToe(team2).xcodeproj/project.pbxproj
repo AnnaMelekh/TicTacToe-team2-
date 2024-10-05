@@ -20,6 +20,7 @@
 		15991A712CAD385000B6CDE8 /* SkinCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15991A702CAD385000B6CDE8 /* SkinCell.swift */; };
 		37FC99E12CADE0C800A25B11 /* LeaderboardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FC99E02CADE0C800A25B11 /* LeaderboardCell.swift */; };
 		DDE4C6E82CAD4ABF007CED8D /* TicTacModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE4C6E72CAD4ABF007CED8D /* TicTacModel.swift */; };
+		E71ED1212CB144960025C4A5 /* music1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E71ED1202CB144960025C4A5 /* music1.mp3 */; };
 		E79CC3612CAF0CE8009EC06B /* HowToPlayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79CC3602CAF0CE8009EC06B /* HowToPlayCell.swift */; };
 		F306EADF2CA9AF8000092870 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F306EADE2CA9AF8000092870 /* AppDelegate.swift */; };
 		F306EAE12CA9AF8000092870 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F306EAE02CA9AF8000092870 /* SceneDelegate.swift */; };
@@ -40,6 +41,7 @@
 		15991A702CAD385000B6CDE8 /* SkinCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkinCell.swift; sourceTree = "<group>"; };
 		37FC99E02CADE0C800A25B11 /* LeaderboardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardCell.swift; sourceTree = "<group>"; };
 		DDE4C6E72CAD4ABF007CED8D /* TicTacModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TicTacModel.swift; path = "TicTacToe(team2)/Resources/Assets.xcassets/Skins/xOskin.imageset/TicTacModel.swift"; sourceTree = SOURCE_ROOT; };
+		E71ED1202CB144960025C4A5 /* music1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music1.mp3; sourceTree = "<group>"; };
 		E79CC3602CAF0CE8009EC06B /* HowToPlayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToPlayCell.swift; sourceTree = "<group>"; };
 		F306EADB2CA9AF8000092870 /* TicTacToe(team2).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TicTacToe(team2).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F306EADE2CA9AF8000092870 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 		15991A3A2CAA060C00B6CDE8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E71ED1202CB144960025C4A5 /* music1.mp3 */,
 				F306EAE72CA9AF8200092870 /* Assets.xcassets */,
 				F306EAEC2CA9AF8200092870 /* Info.plist */,
 			);
@@ -275,6 +278,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E71ED1212CB144960025C4A5 /* music1.mp3 in Resources */,
 				F306EAE82CA9AF8200092870 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

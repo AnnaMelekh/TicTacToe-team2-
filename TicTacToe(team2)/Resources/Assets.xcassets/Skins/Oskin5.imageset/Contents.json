@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Xskin5.svg",
+      "filename" : "Xskin5.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Xskin5 1.svg",
+      "filename" : "Xskin5@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Xskin5 2.svg",
+      "filename" : "Xskin5@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
