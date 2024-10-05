@@ -19,6 +19,7 @@
 		15991A6F2CAD345500B6CDE8 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15991A6E2CAD345500B6CDE8 /* Settings.swift */; };
 		15991A712CAD385000B6CDE8 /* SkinCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15991A702CAD385000B6CDE8 /* SkinCell.swift */; };
 		37FC99E12CADE0C800A25B11 /* LeaderboardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FC99E02CADE0C800A25B11 /* LeaderboardCell.swift */; };
+		37FC99E92CB199EB00A25B11 /* SinglePlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FC99E82CB199EB00A25B11 /* SinglePlayerViewController.swift */; };
 		DDE4C6E82CAD4ABF007CED8D /* TicTacModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE4C6E72CAD4ABF007CED8D /* TicTacModel.swift */; };
 		E71ED1212CB144960025C4A5 /* music1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E71ED1202CB144960025C4A5 /* music1.mp3 */; };
 		E71ED1272CB1AA2A0025C4A5 /* BackgroundMusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71ED1262CB1AA2A0025C4A5 /* BackgroundMusicPlayer.swift */; };
@@ -41,6 +42,7 @@
 		15991A6E2CAD345500B6CDE8 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Settings.swift; path = "TicTacToe(team2)/Settings.swift"; sourceTree = SOURCE_ROOT; };
 		15991A702CAD385000B6CDE8 /* SkinCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkinCell.swift; sourceTree = "<group>"; };
 		37FC99E02CADE0C800A25B11 /* LeaderboardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardCell.swift; sourceTree = "<group>"; };
+		37FC99E82CB199EB00A25B11 /* SinglePlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePlayerViewController.swift; sourceTree = "<group>"; };
 		DDE4C6E72CAD4ABF007CED8D /* TicTacModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TicTacModel.swift; path = "TicTacToe(team2)/Resources/Assets.xcassets/Skins/xOskin.imageset/TicTacModel.swift"; sourceTree = SOURCE_ROOT; };
 		E71ED1202CB144960025C4A5 /* music1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music1.mp3; sourceTree = "<group>"; };
 		E71ED1262CB1AA2A0025C4A5 /* BackgroundMusicPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundMusicPlayer.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				15991A482CAA0AA600B6CDE8 /* GameViewController.swift */,
+				37FC99E82CB199EB00A25B11 /* SinglePlayerViewController.swift */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -306,6 +309,7 @@
 				15991A4B2CAA0AC600B6CDE8 /* HowToPlayViewController.swift in Sources */,
 				15991A472CAA0A6A00B6CDE8 /* SettingsViewController.swift in Sources */,
 				15991A492CAA0AAE00B6CDE8 /* GameViewController.swift in Sources */,
+				37FC99E92CB199EB00A25B11 /* SinglePlayerViewController.swift in Sources */,
 				E79CC3612CAF0CE8009EC06B /* HowToPlayCell.swift in Sources */,
 				F306EAE12CA9AF8000092870 /* SceneDelegate.swift in Sources */,
 				E71ED1272CB1AA2A0025C4A5 /* BackgroundMusicPlayer.swift in Sources */,
