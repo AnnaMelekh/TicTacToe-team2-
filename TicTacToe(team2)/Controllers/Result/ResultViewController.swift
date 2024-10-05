@@ -20,6 +20,7 @@ class ResultViewController: UIViewController {
     var playAgainButton: UIButton!
     var backButton: UIButton!
     var result: GameResult
+    var winner: String = ""
     
     init(result: GameResult) {
         self.result = result
@@ -34,6 +35,7 @@ class ResultViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = UIColor(named: "background")
+        navigationItem.hidesBackButton = true
         
         
         
@@ -118,7 +120,7 @@ class ResultViewController: UIViewController {
     private func getResultData(for result: GameResult) -> (image: UIImage?, text: String) {
         switch result {
         case .win:
-            return (UIImage(named: "Win"), "Player One win!")
+            return (UIImage(named: "Win"), "Player \(winner) win!")
         case .lose:
             return (UIImage(named: "Loose"), "You Lose!")
         case .draw:
