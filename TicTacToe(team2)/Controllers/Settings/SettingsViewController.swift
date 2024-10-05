@@ -105,9 +105,11 @@ private extension SettingsViewController {
         
         let gameTimeSwitchView = createUpperBlock(title: "Game time", view: gameTimeSwitch)
         let gameMusicView = createUpperBlock(title: "Music", view: gameMusicSwitch)
+        let selectMusicView = createUpperBlock(title: "Select Music", view: musicOptionsTableView)
         
         topSettingsStack.addArrangedSubview(gameTimeSwitchView)
         topSettingsStack.addArrangedSubview(gameMusicView)
+        topSettingsStack.addArrangedSubview(selectMusicView)
         
         setupMusicSelection()
         
