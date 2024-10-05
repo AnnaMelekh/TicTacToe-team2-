@@ -10,6 +10,9 @@ import UIKit
 class SettingsViewController: UIViewController {
     
     var checkedSkin: Int = 0
+    let selectMusicLabel = UILabel()
+    let musicOptionsTableView = UITableView()
+    var musicOptions = [ "Classical", "Instrumental", "Nature"]
     
     private lazy var topSettingsStack: UIStackView = {
         let stackView = ViewFactory.createShadowStackView()
@@ -24,6 +27,7 @@ class SettingsViewController: UIViewController {
     
     private lazy var gameTimeSwitch: UISwitch = {
         let switchView = UISwitch()
+        switchView.onTintColor = UIColor(named: "blue")
         return switchView
     }()
     
@@ -101,9 +105,24 @@ private extension SettingsViewController {
         
         let gameTimeSwitchView = createUpperBlock(title: "Game time", view: gameTimeSwitch)
         let gameMusicView = createUpperBlock(title: "Music", view: gameMusicSwitch)
+        
         topSettingsStack.addArrangedSubview(gameTimeSwitchView)
         topSettingsStack.addArrangedSubview(gameMusicView)
+        
 
+        selectMusicLabel.text = "Select Music"
+        selectMusicLabel.isHidden = true
+        view.addSubview(selectMusicLabel)
+        
+        gameMusicSwitch.addTarget(self, action: #selector(musicSwitchSwitched(_:)), for: .valueChanged)
+        view.addSubview(selectMusicLabel)
+        
+        musicOptionsTableView.delegate = self
+        musicOptionsTableView.dataSource = self
+        musicOptionsTableView.isHidden = true
+        musicOptionsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        view.addSubview(musicOptionsTableView)
+        
         
         topSettingsStack.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(20)
@@ -118,7 +137,28 @@ private extension SettingsViewController {
             make.bottom.equalTo(contentView.snp.bottom)
         }
         
+        selectMusicLabel.snp.makeConstraints {
+            $0.top.equalTo(gameTimeSwitch.snp.bottom).offset(20)
+            $0.centerX.equalToSuperview()
+        }
+        
+        musicOptionsTableView.snp.makeConstraints {
+            $0.top.equalTo(selectMusicLabel.snp.bottom).offset(10)
+            $0.left.right.equalToSuperview().inset(20)
+            $0.height.equalTo(150)
+                }
+        
             
+    }
+    
+    @objc func musicSwitchSwitched(_ sender: UISwitch) {
+        if sender.isOn {
+            selectMusicLabel.isHidden = false
+            musicOptionsTableView.isHidden = false
+        } else {
+            selectMusicLabel.isHidden = true
+            musicOptionsTableView.isHidden = true
+        }
     }
     
     func createUpperBlock(title: String, view: UIView) -> UIView {
@@ -139,10 +179,10 @@ private extension SettingsViewController {
                 
             let contentStack: UIStackView
                 
-            if title == "Game time" || title == "Music" {
+            if title == "Game time" || title == "Music" || title == "Select Music" {
                guard let switchControl = view as? UISwitch else { return blockView }
                 switchControl.isOn = false
-                switchControl.onTintColor = UIColor(named: "blue")
+                switchControl.onTintColor = UIColor(named: "Blue")
 
                 contentStack = UIStackView(arrangedSubviews: [titleLabel, switchControl])
                 contentStack.axis = .horizontal
@@ -182,7 +222,18 @@ private extension SettingsViewController {
     }
 }
 
-extension SettingsViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension SettingsViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        musicOptions.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.textLabel?.text = musicOptions[indexPath.row]
+        return cell
+    }
+    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         skins.count
