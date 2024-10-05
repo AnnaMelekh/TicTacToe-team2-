@@ -129,7 +129,9 @@ class SelectGameViewController: UIViewController {
     private func goToSomeVC(_ sender: UIButton) {
         switch sender {
         case settingButton: pushViewController(SettingsViewController())
-        case singleButton, twoPlayersButton:
+        case singleButton:
+            pushViewController(SinglePlayerViewController())
+        case twoPlayersButton:
             pushViewController(GameViewController())
         case leaderboardButton:
             pushViewController(LeaderboardViewController())
