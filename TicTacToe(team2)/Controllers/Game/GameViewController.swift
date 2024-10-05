@@ -19,8 +19,12 @@ class GameViewController: UIViewController {
     var buttonsCoordinate: [Int : CGPoint] = [:]
     var timerLabel: UILabel!
     
+    var settingsManager = SettingsManager()
+    var settings: Settings?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        getSettings()
         view.backgroundColor = UIColor(named: "background")
         navigationItem.hidesBackButton = true
         topStack = createTopStack()
@@ -349,6 +353,19 @@ class GameViewController: UIViewController {
                 self?.navigationController?.pushViewController(VC, animated: true)
             }
         }
+    }
+    
+    func getSettings() {
+        settingsManager.getSettings(completion: { result in
+            switch result {
+            case .success(let settings):
+                self.settings = settings
+                print("Data was loaded")
+            case .failure(let error):
+                print(error.localizedDescription)
+                print("Didnt loaddata")
+            }
+        })
     }
     
 }
