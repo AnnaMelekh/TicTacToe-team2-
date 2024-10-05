@@ -30,7 +30,6 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         getSettings()
         view.backgroundColor = UIColor(named: "background")
-        navigationItem.hidesBackButton = true
         topStack = createTopStack()
         
         currentTurnStack = createTurnStack(image: ticTacModel.getTurnImage())
