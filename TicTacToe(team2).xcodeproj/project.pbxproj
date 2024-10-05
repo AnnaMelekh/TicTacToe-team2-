@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		15775F902CAF2F420046DC4F /* ViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15775F8F2CAF2F420046DC4F /* ViewFactory.swift */; };
+		15775F942CB062D40046DC4F /* GameErrorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15775F932CB062CF0046DC4F /* GameErrorService.swift */; };
 		15991A372CAA045100B6CDE8 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 15991A362CAA045100B6CDE8 /* SnapKit */; };
 		15991A452CAA0A3400B6CDE8 /* SelectGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15991A442CAA0A2C00B6CDE8 /* SelectGameViewController.swift */; };
 		15991A472CAA0A6A00B6CDE8 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15991A462CAA0A6100B6CDE8 /* SettingsViewController.swift */; };
@@ -29,6 +30,7 @@
 
 /* Begin PBXFileReference section */
 		15775F8F2CAF2F420046DC4F /* ViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewFactory.swift; path = "TicTacToe(team2)/ViewFactory.swift"; sourceTree = SOURCE_ROOT; };
+		15775F932CB062CF0046DC4F /* GameErrorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameErrorService.swift; sourceTree = "<group>"; };
 		15991A442CAA0A2C00B6CDE8 /* SelectGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGameViewController.swift; sourceTree = "<group>"; };
 		15991A462CAA0A6100B6CDE8 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		15991A482CAA0AA600B6CDE8 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -61,6 +63,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		15775F922CB062C70046DC4F /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				15775F932CB062CF0046DC4F /* GameErrorService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		15991A382CAA059D00B6CDE8 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -197,6 +207,7 @@
 		F306EADD2CA9AF8000092870 /* TicTacToe(team2) */ = {
 			isa = PBXGroup;
 			children = (
+				15775F922CB062C70046DC4F /* Services */,
 				15991A3C2CAA067000B6CDE8 /* Model */,
 				15991A3B2CAA062300B6CDE8 /* Extension */,
 				15991A392CAA05C100B6CDE8 /* App */,
@@ -285,6 +296,7 @@
 				15991A452CAA0A3400B6CDE8 /* SelectGameViewController.swift in Sources */,
 				15991A4F2CAA0B1000B6CDE8 /* ResultViewController.swift in Sources */,
 				15991A6F2CAD345500B6CDE8 /* Settings.swift in Sources */,
+				15775F942CB062D40046DC4F /* GameErrorService.swift in Sources */,
 				15991A512CAA0B2A00B6CDE8 /* LeaderboardViewController.swift in Sources */,
 				15775F902CAF2F420046DC4F /* ViewFactory.swift in Sources */,
 				15991A712CAD385000B6CDE8 /* SkinCell.swift in Sources */,

@@ -18,9 +18,17 @@ class GameViewController: UIViewController {
     var topStack: UIView!
     var buttonsCoordinate: [Int : CGPoint] = [:]
     var timerLabel: UILabel!
+    var buttonss: [UIButton] = []
+    var gameTimer: Timer?
+    var gameTime = 0
+    var isGameTimerOn = false
+    
+    var settingsManager = SettingsManager()
+    var settings: Settings?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        getSettings()
         view.backgroundColor = UIColor(named: "background")
         navigationItem.hidesBackButton = true
         topStack = createTopStack()
@@ -124,6 +132,7 @@ class GameViewController: UIViewController {
         button.tag = index
         button.addTarget(self, action: #selector(buttonPress(_:)), for: .touchUpInside)
         view.addSubview(button)
+        buttonss.append(button)
         
         return button
         
@@ -131,6 +140,7 @@ class GameViewController: UIViewController {
     
     @objc
     private func buttonPress(_ sender: UIButton) {
+        if !isGameTimerOn { startGameTimer() }
         updateTimerLabel()
         ticTacModel.startTimer()
         let index = sender.tag
@@ -140,6 +150,7 @@ class GameViewController: UIViewController {
             sender.setImage(UIImage(named: imageName), for: .normal)
             icon?.image = ticTacModel.getTurnImage()
             if let winCombo = ticTacModel.checkWin(completion: { [weak self] winner in
+                self?.turnOffButtons()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.1) {
                     let VC = ResultViewController(result: .win)
                     self?.navigationController?.pushViewController(VC, animated: true)
@@ -149,7 +160,8 @@ class GameViewController: UIViewController {
             }) {
                 drawWinningLine(for: winCombo)
             }
-            if buttonsCoordinate.count == 9 {
+             else if buttonsCoordinate.count == 9 {
+                 turnOffButtons()
                 let VC = ResultViewController(result: .draw)
                 self.navigationController?.pushViewController(VC, animated: true)
                 ticTacModel.stopTimer()
@@ -338,7 +350,7 @@ class GameViewController: UIViewController {
         lineLayer.strokeEnd = 1
     }
     
-    func updateTimerLabel() {
+    private func updateTimerLabel() {
         
         ticTacModel.timerUpdate = { [weak self] time in
             let minutes = time / 60
@@ -349,6 +361,54 @@ class GameViewController: UIViewController {
                 self?.navigationController?.pushViewController(VC, animated: true)
             }
         }
+    }
+    
+    private func turnOffButtons() {
+        convertTime(time: gameTime)
+        gameTimer?.invalidate()
+        gameTime = 0
+        for button in buttonss {
+            button.isUserInteractionEnabled = false
+        }
+    }
+    
+    private func convertTime(time: Int) {
+        let minutes = time / 60
+        let seconds = time % 60
+        let convertTime = String(format: "%02d:%02d", minutes, seconds)
+        ticTacModel.bestTimes.append(convertTime)
+        UserDefaults.standard.set(ticTacModel.bestTimes, forKey: "bestTimes")
+    }
+    
+    private func startGameTimer() {
+        isGameTimerOn.toggle()
+        gameTimer = Timer.scheduledTimer(
+            timeInterval: 1,
+            target: self,
+            selector: #selector(updateGameTimer),
+            userInfo: nil,
+            repeats: true
+        )
+    }
+    
+    @objc
+    private func updateGameTimer() {
+        gameTime += 1
+    }
+    
+    
+    
+    func getSettings() {
+        settingsManager.getSettings(completion: { result in
+            switch result {
+            case .success(let settings):
+                self.settings = settings
+                print("Data was loaded")
+            case .failure(let error):
+                print(error.localizedDescription)
+                print("Didnt loaddata")
+            }
+        })
     }
     
 }
