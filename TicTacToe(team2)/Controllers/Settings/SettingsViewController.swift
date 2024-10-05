@@ -199,7 +199,7 @@ private extension SettingsViewController {
         
         let contentStack: UIStackView
         
-        if title == "Game time" || title == "Music" || title == "Select Music" {
+        if title == "Game time" || title == "Music" {
             guard let switchControl = view as? UISwitch else { return blockView }
             switchControl.isOn = false
             switchControl.onTintColor = UIColor(named: "Blue")
