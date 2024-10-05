@@ -18,7 +18,7 @@ class SkinCell: UICollectionViewCell {
             selectLabel.textColor = .white
             selectLabel.text = "Picked"
         } else {
-            selectLabel.backgroundColor = UIColor(named: "gray")
+            selectLabel.backgroundColor = UIColor(named: "lightBlue")
             selectLabel.textColor = .black
             selectLabel.text = "Choose"
         }
@@ -54,7 +54,7 @@ class SkinCell: UICollectionViewCell {
         label.font = .systemFont(ofSize: 20, weight: .semibold)
         label.layer.cornerRadius = 20
         label.layer.masksToBounds = true
-        label.backgroundColor = UIColor(named: "gray")
+        label.backgroundColor = UIColor(named: "lightBlue")
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         return label
