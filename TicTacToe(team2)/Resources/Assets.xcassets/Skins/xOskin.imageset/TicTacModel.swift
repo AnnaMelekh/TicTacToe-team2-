@@ -17,7 +17,8 @@ class TicTacModel {
         [0, 3, 6], [1, 4, 7], [2, 5, 8],
         [0, 4, 8], [2, 4, 6]
     ]
-    var timer: Timer?
+    var turnTimer: Timer?
+    var bestTimes: [String] = []
     var gameTime = 30 {
         didSet {
             timerUpdate?(gameTime)
@@ -26,10 +27,15 @@ class TicTacModel {
     
     var timerUpdate: ((Int) -> Void)?
     
+    
+    init() {
+        loadBestTime()
+    }
+    
     func startTimer() {
-        timer?.invalidate()
+        turnTimer?.invalidate()
         gameTime = 30
-        timer = Timer.scheduledTimer(
+        turnTimer = Timer.scheduledTimer(
             timeInterval: 1,
             target: self,
             selector: #selector(updateTimer),
@@ -42,7 +48,7 @@ class TicTacModel {
         if gameTime > 0 {
             gameTime -= 1
         } else {
-            timer?.invalidate()
+            turnTimer?.invalidate()
         }
     }
     
@@ -77,6 +83,13 @@ class TicTacModel {
     }
     
     func stopTimer() {
-        timer?.invalidate()
+        turnTimer?.invalidate()
+    }
+    
+    func loadBestTime() -> [String] {
+        if let savedBestTimes = UserDefaults.standard.array(forKey: "bestTimes") as? [String] {
+            bestTimes = savedBestTimes
+        }
+        return bestTimes
     }
 }

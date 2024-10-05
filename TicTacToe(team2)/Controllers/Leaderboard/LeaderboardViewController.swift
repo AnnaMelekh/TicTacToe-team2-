@@ -12,7 +12,9 @@ class LeaderboardViewController: UIViewController {
     
     //MARK: - Properties
     //тестовые данные
-    let testArray: [String] = ["0:20", "0:40", "0:42", "0:48"]
+    var ticTacModel = TicTacModel()
+    var leaderTime: [String] = []
+    
     
     private lazy var navigationLabel: UILabel = {
         let label = UILabel()
@@ -30,9 +32,10 @@ class LeaderboardViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "background")
         self.navigationItem.titleView = navigationLabel
+        leaderTime = ticTacModel.loadBestTime().sorted()
         
         //проверка есть ли данные / какой юай показать
-        switch testArray.isEmpty {
+        switch leaderTime.isEmpty {
         case true:
             setupEmptyDataUI()
         case false:
@@ -150,7 +153,7 @@ class LeaderboardViewController: UIViewController {
 //MARK: - Extensions
 extension LeaderboardViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.testArray.count
+        return self.leaderTime.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -159,7 +162,7 @@ extension LeaderboardViewController: UITableViewDelegate, UITableViewDataSource 
             fatalError("TableView не смог определить ячейку")
         }
         
-        let time = self.testArray[indexPath.row]
+        let time = self.leaderTime[indexPath.row]
         cell.backgroundColor = UIColor(named: "background")
         //устанавливаю все ячейки одинаковыми
         cell.configure(with: String(indexPath.row + 1), and: "Time \(time)")
