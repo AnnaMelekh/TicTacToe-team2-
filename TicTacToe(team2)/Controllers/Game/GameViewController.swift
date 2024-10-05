@@ -36,6 +36,7 @@ class GameViewController: UIViewController {
         
         field = createField()
         field.addSubview(createVStackButtons())
+     
         
     }
     
