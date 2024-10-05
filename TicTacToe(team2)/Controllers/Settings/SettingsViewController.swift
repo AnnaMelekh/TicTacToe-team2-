@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class SettingsViewController: UIViewController {
     
@@ -27,8 +28,11 @@ class SettingsViewController: UIViewController {
         return switchView
     }()
     
+    private var audioPlayer: AVAudioPlayer?
+    
     private lazy var gameMusicSwitch: UISwitch = {
         let switchView = UISwitch()
+        switchView.addTarget(self, action: #selector(musicSwitchChanged), for: .valueChanged)
         return switchView
     }()
     
@@ -55,24 +59,48 @@ class SettingsViewController: UIViewController {
     
     private var skins: [Skin] = [
         Skin(oSkin: "Oskin1", xSkin: "Xskin1"),
-        Skin(oSkin: "Oskin2", xSkin: "Xskin2"),
+        Skin(oSkin: "Oskin4", xSkin: "Xskin4"),
         Skin(oSkin: "Oskin3", xSkin: "Xskin3", isChecked: true),
-        Skin(oSkin: "Oskin1", xSkin: "Xskin1"),
+        Skin(oSkin: "Oskin5", xSkin: "Xskin5"),
         Skin(oSkin: "Oskin2", xSkin: "Xskin2"),
-        Skin(oSkin: "Oskin3", xSkin: "Xskin3"),
-        Skin(oSkin: "Oskin1", xSkin: "Xskin1"),
-        Skin(oSkin: "Oskin2", xSkin: "Xskin2"),
-        Skin(oSkin: "Oskin3", xSkin: "Xskin3")
+        Skin(oSkin: "Oskin6", xSkin: "Xskin6")
     ]
         
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        setupAudioPlayer()
     }
+    
+   //MARK: - Setup Audio Player
+    private func setupAudioPlayer() {
+            guard let musicURL = Bundle.main.url(forResource: "music1", withExtension: "mp3") else {
+                print("Звуковой файл не найден")
+                return
+            }
+            
+            do {
+                audioPlayer = try AVAudioPlayer(contentsOf: musicURL)
+                audioPlayer?.numberOfLoops = -1
+                audioPlayer?.prepareToPlay()
+            } catch {
+                print("Ошибка при инициализации аудиоплеера: \(error.localizedDescription)")
+            }
+        }
+        
+    private func toggleMusic(_ isOn: Bool) {
+            if isOn {
+                audioPlayer?.play()
+            } else {
+                audioPlayer?.stop()
+            }
+        }
+    
+    @objc private func musicSwitchChanged(_ sender: UISwitch) {
+        toggleMusic(sender.isOn)
+    }
+    
 }
-
-
-
 
 private extension SettingsViewController {
     
@@ -118,7 +146,6 @@ private extension SettingsViewController {
             make.bottom.equalTo(contentView.snp.bottom)
         }
         
-            
     }
     
     func createUpperBlock(title: String, view: UIView) -> UIView {
@@ -181,6 +208,7 @@ private extension SettingsViewController {
         return layout
     }
 }
+
 
 extension SettingsViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     

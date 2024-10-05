@@ -18,7 +18,7 @@ class SkinCell: UICollectionViewCell {
             selectLabel.textColor = .white
             selectLabel.text = "Picked"
         } else {
-            selectLabel.backgroundColor = UIColor(named: "gray")
+            selectLabel.backgroundColor = UIColor(named: "lightBlue")
             selectLabel.textColor = .black
             selectLabel.text = "Choose"
         }
