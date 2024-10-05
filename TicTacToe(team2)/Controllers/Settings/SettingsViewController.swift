@@ -15,7 +15,6 @@ class SettingsViewController: UIViewController {
     var pickedSkin = Skin(oSkin: "Oskin2", xSkin: "Xskin2", isChecked: true)
     var skins = Skins().skins
     
-    
     private lazy var topSettingsStack: UIStackView = {
         let stackView = ViewFactory.createShadowStackView()
         stackView.axis = .vertical
@@ -38,7 +37,7 @@ class SettingsViewController: UIViewController {
     private lazy var gameMusicSwitch: UISwitch = {
         let switchView = UISwitch()
         switchView.isOn = settings?.isMusicEnabled ?? false
-        switchView.addTarget(self, action: #selector(musicSwitchChanged), for: .valueChanged)
+        switchView.addTarget(self, action: #selector(switchChanged), for: .valueChanged)
         return switchView
     }()
     
@@ -69,35 +68,12 @@ class SettingsViewController: UIViewController {
         setupNavigationBar()
         setupUI()
         setupSwitches()
-        setupAudioPlayer()
     }
     
    //MARK: - Setup Audio Player
-    private func setupAudioPlayer() {
-            guard let musicURL = Bundle.main.url(forResource: "music1", withExtension: "mp3") else {
-                print("Звуковой файл не найден")
-                return
-            }
-            
-            do {
-                audioPlayer = try AVAudioPlayer(contentsOf: musicURL)
-                audioPlayer?.numberOfLoops = -1
-                audioPlayer?.prepareToPlay()
-            } catch {
-                print("Ошибка при инициализации аудиоплеера: \(error.localizedDescription)")
-            }
-        }
-        
-    private func toggleMusic(_ isOn: Bool) {
-            if isOn {
-                audioPlayer?.play()
-            } else {
-                audioPlayer?.stop()
-            }
-        }
-    
-    @objc private func musicSwitchChanged(_ sender: UISwitch) {
-        toggleMusic(sender.isOn)
+   
+    @objc func switchChanged(_ sender: UISwitch) {
+        BackgroundMusicPlayer.shared.setMusicEnabled(sender.isOn)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -106,8 +82,7 @@ class SettingsViewController: UIViewController {
     
 }
     
-    
-    
+
     private extension SettingsViewController {
         
         func setupUI() {
