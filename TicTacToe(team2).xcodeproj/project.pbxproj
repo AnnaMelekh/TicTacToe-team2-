@@ -53,6 +53,7 @@
 		F306EAE22CA9AF8000092870 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		F306EAE72CA9AF8200092870 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F306EAEC2CA9AF8200092870 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F33F8D4E2CB1E1FB008EBD37 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.markdown; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -197,6 +198,7 @@
 		F306EAD22CA9AF8000092870 = {
 			isa = PBXGroup;
 			children = (
+				F33F8D4E2CB1E1FB008EBD37 /* README.md */,
 				F306EADD2CA9AF8000092870 /* TicTacToe(team2) */,
 				F306EADC2CA9AF8000092870 /* Products */,
 			);

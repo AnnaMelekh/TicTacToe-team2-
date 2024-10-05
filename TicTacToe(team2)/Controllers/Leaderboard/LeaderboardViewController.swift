@@ -164,6 +164,8 @@ extension LeaderboardViewController: UITableViewDelegate, UITableViewDataSource 
         
         let time = self.leaderTime[indexPath.row]
         cell.backgroundColor = UIColor(named: "background")
+        cell.purpleCapsule.backgroundColor = UIColor(named: "lightBlue")
+        cell.purpleCircleView.backgroundColor = UIColor(named: "lightBlue")
         //устанавливаю все ячейки одинаковыми
         cell.configure(with: String(indexPath.row + 1), and: "Time \(time)")
         

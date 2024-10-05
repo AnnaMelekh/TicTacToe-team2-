@@ -143,7 +143,9 @@ class ResultViewController: UIViewController {
     @objc
     private func goToSomeVCTest(_ sender: UIButton) {
         if sender == playAgainButton {
-            pushViewController(GameViewController())
+            let gameVC = GameViewController()
+                let navigationController = self.navigationController
+                navigationController?.setViewControllers([SelectGameViewController(), gameVC], animated: true)
         
         } else if sender == backButton {
             pushViewController(SelectGameViewController())

@@ -13,7 +13,7 @@ class LeaderboardCell: UITableViewCell {
     //MARK: - Properties
     static let identifier = "LeaderboardCell"
     
-    private lazy var purpleCircleView: UIView = {
+    lazy var purpleCircleView: UIView = {
         let view = UIView()
         
         view.backgroundColor = UIColor(named: "lightBlue")
@@ -22,7 +22,7 @@ class LeaderboardCell: UITableViewCell {
         return view
     }()
     
-    private lazy var purpleCapsule: UIView = {
+    lazy var purpleCapsule: UIView = {
         let view = UIView()
         
         view.backgroundColor = UIColor(named: "lightBlue")
