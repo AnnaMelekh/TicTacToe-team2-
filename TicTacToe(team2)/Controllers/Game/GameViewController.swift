@@ -152,18 +152,18 @@ class GameViewController: UIViewController {
             if let winCombo = ticTacModel.checkWin(completion: { [weak self] winner in
                 self?.turnOffButtons()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.1) {
-                    let VC = ResultViewController(result: .win)
-                    self?.navigationController?.pushViewController(VC, animated: true)
+                    let resultVC = ResultViewController(result: .win, gameMode: .multiplayer)
+                    self?.navigationController?.pushViewController(resultVC, animated: true)
                     self?.ticTacModel.stopTimer()
-                    VC.winner = winner
+                    resultVC.winner = winner
                 }
             }) {
                 drawWinningLine(for: winCombo)
             }
              else if buttonsCoordinate.count == 9 {
                  turnOffButtons()
-                let VC = ResultViewController(result: .draw)
-                self.navigationController?.pushViewController(VC, animated: true)
+                 let resultVC = ResultViewController(result: .draw, gameMode: .multiplayer)
+                 self.navigationController?.pushViewController(resultVC, animated: true)
                 ticTacModel.stopTimer()
             }
         }
@@ -357,8 +357,8 @@ class GameViewController: UIViewController {
             let seconds = time % 60
             self?.timerLabel.text = String(format: "%02d:%02d", minutes, seconds)
             if time == 0 {
-                let VC = ResultViewController(result: .lose)
-                self?.navigationController?.pushViewController(VC, animated: true)
+                let resultVC = ResultViewController(result: .lose, gameMode: .multiplayer)
+                self?.navigationController?.pushViewController(resultVC, animated: true)
             }
         }
     }
