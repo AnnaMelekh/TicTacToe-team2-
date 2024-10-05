@@ -9,12 +9,16 @@ import UIKit
 
 class SettingsViewController: UIViewController {
     
-    var checkedSkin: Int = 0
+    var settingsManager = SettingsManager()
+    var settings: Settings?
+    var pickedSkin = Skin(oSkin: "Oskin2", xSkin: "Xskin2", isChecked: true)
+    var skins = Skins().skins
+    
     
     private lazy var topSettingsStack: UIStackView = {
         let stackView = ViewFactory.createShadowStackView()
         stackView.axis = .vertical
-        stackView.distribution = .fillProportionally // или все-таки .fillequally
+        stackView.distribution = .fillProportionally
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
         stackView.spacing = 20
@@ -24,11 +28,13 @@ class SettingsViewController: UIViewController {
     
     private lazy var gameTimeSwitch: UISwitch = {
         let switchView = UISwitch()
+        switchView.isOn = settings?.isGameTimeEnabled ?? false
         return switchView
     }()
     
     private lazy var gameMusicSwitch: UISwitch = {
         let switchView = UISwitch()
+        switchView.isOn = settings?.isMusicEnabled ?? false
         return switchView
     }()
     
@@ -53,100 +59,137 @@ class SettingsViewController: UIViewController {
         return contentView
     }()
     
-    private var skins: [Skin] = [
-        Skin(oSkin: "Oskin1", xSkin: "Xskin1"),
-        Skin(oSkin: "Oskin2", xSkin: "Xskin2"),
-        Skin(oSkin: "Oskin3", xSkin: "Xskin3", isChecked: true),
-        Skin(oSkin: "Oskin1", xSkin: "Xskin1"),
-        Skin(oSkin: "Oskin2", xSkin: "Xskin2"),
-        Skin(oSkin: "Oskin3", xSkin: "Xskin3"),
-        Skin(oSkin: "Oskin1", xSkin: "Xskin1"),
-        Skin(oSkin: "Oskin2", xSkin: "Xskin2"),
-        Skin(oSkin: "Oskin3", xSkin: "Xskin3")
-    ]
-        
     override func viewDidLoad() {
         super.viewDidLoad()
+        getSettings()
+        setupNavigationBar()
         setupUI()
+        setupSwitches()
+        
+
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        saveSettings(isGameTimeEnabled: gameTimeSwitch.isOn, gameTime: 40, skin: pickedSkin, availableSkins: settings?.availableSkins, isMusicEnabled: gameMusicSwitch.isOn)
     }
 }
-
-
-
-
-private extension SettingsViewController {
     
-    func setupUI() {
-        view.backgroundColor = UIColor(named: "background")
+    
+    
+    private extension SettingsViewController {
         
-        skinsCollectionView =  UICollectionView(frame: .zero, collectionViewLayout: createLayoutForCollection())
-        skinsCollectionView.register(SkinCell.self, forCellWithReuseIdentifier: String(describing: SkinCell.self))
-        skinsCollectionView.isScrollEnabled = false
-        skinsCollectionView.backgroundColor = .clear
-        skinsCollectionView.dataSource = self
-        skinsCollectionView.delegate = self
-        
-//        let yStackView = UIStackView(arrangedSubviews: [gameTimeSwitch, gameTimeLabel])
-//        
-//        yStackView.axis = .vertical
-//        yStackView.alignment = .center
-//        yStackView.spacing = 20
-//        
-//        let topSettingsStack = createTopSettinsStack()
-        
-        view.addSubview(scrollView)
-        scrollView.addSubview(contentView)
-        contentView.addSubview(topSettingsStack)
-        contentView.addSubview(skinsCollectionView)
-        
-        let gameTimeSwitchView = createUpperBlock(title: "Game time", view: gameTimeSwitch)
-        let gameMusicView = createUpperBlock(title: "Music", view: gameMusicSwitch)
-        topSettingsStack.addArrangedSubview(gameTimeSwitchView)
-        topSettingsStack.addArrangedSubview(gameMusicView)
-
-        
-        topSettingsStack.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(20)
-            make.top.equalToSuperview().offset(100)
-//            make.height.equalTo()
-            make.width.equalTo(view.frame.width - 40)
+        func setupUI() {
+            view.backgroundColor = UIColor(named: "background")
+            
+            skinsCollectionView =  UICollectionView(frame: .zero, collectionViewLayout: createLayoutForCollection())
+            skinsCollectionView.register(SkinCell.self, forCellWithReuseIdentifier: String(describing: SkinCell.self))
+            skinsCollectionView.isScrollEnabled = false
+            skinsCollectionView.backgroundColor = .clear
+            skinsCollectionView.dataSource = self
+            skinsCollectionView.delegate = self
+            
+            view.addSubview(scrollView)
+            scrollView.addSubview(contentView)
+            contentView.addSubview(topSettingsStack)
+            contentView.addSubview(skinsCollectionView)
+            
+            let gameTimeSwitchView = createUpperBlock(title: "Game time", view: gameTimeSwitch)
+            let gameMusicView = createUpperBlock(title: "Music", view: gameMusicSwitch)
+            topSettingsStack.addArrangedSubview(gameTimeSwitchView)
+            topSettingsStack.addArrangedSubview(gameMusicView)
+            
+            
+            topSettingsStack.snp.makeConstraints { make in
+                make.leading.trailing.equalToSuperview().inset(20)
+                make.top.equalToSuperview().offset(100)
+                make.width.equalTo(view.frame.width - 40)
+                
+            }
+            skinsCollectionView.snp.makeConstraints{ make in
+                make.top.equalTo(topSettingsStack.snp.bottom).offset(10)
+                make.leading.trailing.equalToSuperview()
+                make.bottom.equalTo(contentView.snp.bottom)
+            }
+            
             
         }
-        skinsCollectionView.snp.makeConstraints{ make in
-            make.top.equalTo(topSettingsStack.snp.bottom).offset(10)
-            make.leading.trailing.equalToSuperview()
-            make.bottom.equalTo(contentView.snp.bottom)
+        
+        func setupNavigationBar() {
+            navigationItem.title = "Settings"
         }
         
-            
-    }
-    
-    func createUpperBlock(title: String, view: UIView) -> UIView {
+        func setupSwitches() {
+            gameTimeSwitch.isOn = settings?.isGameTimeEnabled ?? true
+            gameMusicSwitch.isOn = settings?.isMusicEnabled ?? true
+        }
+        
+        func saveSettings(
+            isGameTimeEnabled: Bool?,
+            gameTime: Int?,
+            skin: Skin?,
+            availableSkins: [Skin]?,
+            isMusicEnabled: Bool?) {
+                settingsManager.getSettings(completion: { result in
+                    switch result {
+                    case .success(let settings):
+                        self.settings = settings
+                    case .failure(let error):
+                        print(error.localizedDescription)
+                    }
+                })
+                
+                settingsManager.saveSettings(
+                    isGameTimeEnabled: isGameTimeEnabled ?? settings?.isGameTimeEnabled,
+                    gameTime: gameTime ?? settings?.gameTime,
+                    skin: skin ?? settings?.skin,
+                    availableSkins: availableSkins ?? settings?.availableSkins,
+                    isMusicEnabled: isMusicEnabled ?? settings?.isMusicEnabled,
+                    completion: { [weak self] result in
+                        switch result {
+                        case .success(let settings):
+                            self?.settings = settings
+                        case .failure(let error):
+                            print(error.localizedDescription)
+                        }
+                    }
+                )
+            }
+        
+        func getSettings() {
+            settingsManager.getSettings(completion: { result in
+                switch result {
+                case .success(let settings):
+                    self.settings = settings
+                    print("Data was loaded")
+                case .failure(let error):
+                    print(error.localizedDescription)
+                    print("Didnt loaddata")
+                }
+            })
+        }
+        
+        
+        func createUpperBlock(title: String, view: UIView) -> UIView {
             let blockView = UIView()
             blockView.backgroundColor = UIColor(named: "lightBlue")
             blockView.layer.cornerRadius = 25
             blockView.translatesAutoresizingMaskIntoConstraints = false
-                
-//            blockView.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
-            
-            //blockView.isLayoutMarginsRelativeArrangement = true
-                
+
             let titleLabel = UILabel()
             titleLabel.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
             titleLabel.textAlignment = .left
             titleLabel.textColor = .black
             titleLabel.text = title
-                
+            
             let contentStack: UIStackView
-                
+            
             if title == "Game time" || title == "Music" {
-               guard let switchControl = view as? UISwitch else { return blockView }
+                guard let switchControl = view as? UISwitch else { return blockView }
                 switchControl.isOn = false
                 switchControl.onTintColor = UIColor(named: "blue")
-
+                
                 contentStack = UIStackView(arrangedSubviews: [titleLabel, switchControl])
                 contentStack.axis = .horizontal
-//                contentStack.spacing = 10
                 contentStack.alignment = .center
                 contentStack.distribution = .equalCentering
             } else {
@@ -158,51 +201,53 @@ private extension SettingsViewController {
             
             contentStack.translatesAutoresizingMaskIntoConstraints = false
             blockView.addSubview(contentStack)
-        contentStack.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(20)
-            make.top.bottom.equalToSuperview().inset(10)
-        }
+            contentStack.snp.makeConstraints { make in
+                make.leading.trailing.equalToSuperview().inset(20)
+                make.top.bottom.equalToSuperview().inset(10)
+            }
             return blockView
         }
-    
-    
-    func createLayoutForCollection() -> UICollectionViewFlowLayout {
-
-        let layout = UICollectionViewFlowLayout()
-        let basicSpacing: CGFloat = 20
-        let itemsPerRow: CGFloat = 2
-        let paddingWidth = basicSpacing * (itemsPerRow + 1)
-        let availableWidth = view.frame.width - paddingWidth
-        let widthPerItem = availableWidth / itemsPerRow
-        layout.minimumLineSpacing = basicSpacing
-        layout.minimumInteritemSpacing = basicSpacing
-        layout.sectionInset = UIEdgeInsets(top: basicSpacing, left: basicSpacing, bottom: 0, right: basicSpacing)
-        layout.itemSize = CGSize(width: widthPerItem, height: widthPerItem)
-        return layout
+        
+        
+        func createLayoutForCollection() -> UICollectionViewFlowLayout {
+            
+            let layout = UICollectionViewFlowLayout()
+            let basicSpacing: CGFloat = 20
+            let itemsPerRow: CGFloat = 2
+            let paddingWidth = basicSpacing * (itemsPerRow + 1)
+            let availableWidth = view.frame.width - paddingWidth
+            let widthPerItem = availableWidth / itemsPerRow
+            layout.minimumLineSpacing = basicSpacing
+            layout.minimumInteritemSpacing = basicSpacing
+            layout.sectionInset = UIEdgeInsets(top: basicSpacing, left: basicSpacing, bottom: 0, right: basicSpacing)
+            layout.itemSize = CGSize(width: widthPerItem, height: widthPerItem)
+            return layout
+        }
     }
-}
 
 extension SettingsViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        skins.count
+        (settings?.availableSkins ?? []).count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: SkinCell.self), for: indexPath) as! SkinCell
-        let skin = skins[indexPath.item]
-        cell.configure(with: skin)
+        let skin = settings?.availableSkins[indexPath.item]
+        cell.configure(with: skin ?? Skin(oSkin: "Oskin1", xSkin: "Xskin1", isChecked: true))
+        print(skin!)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         for index in 0..<skins.count {
-            skins[index].isChecked = false
+            settings?.availableSkins[index].isChecked = false
         }
-        skins[indexPath.item].isChecked.toggle()
-        checkedSkin = indexPath.item
+        settings?.availableSkins[indexPath.item].isChecked.toggle()
+        pickedSkin = settings?.availableSkins[indexPath.item] ?? skins[indexPath.item]
         skinsCollectionView.reloadData()
+        print(pickedSkin)
     }
 }
 
