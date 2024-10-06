@@ -1,19 +1,23 @@
 //
-//  Untitled.swift
+//  DifficulSettingController.swift
 //  TicTacToe(team2)
 //
-//  Created by Igor Guryan on 30.09.2024.
+//  Created by Олег Дербин on 06.10.2024.
 //
 
-
 import UIKit
-import SnapKit
 
-class SelectGameViewController: UIViewController {
+class DifficulSettingController: UIViewController {
     
-    //MARK: - UI elements
     private lazy var settingButton: UIButton = {
         $0.setImage(UIImage(named: "Settings"), for: .normal)
+        $0.setImage(UIImage(named: "settingPressed"), for: .highlighted)
+        $0.addTarget(self, action: #selector(goToSomeVC(_:)), for: .touchUpInside)
+        return $0
+    }(UIButton())
+    
+    private lazy var backButton: UIButton = {
+        $0.setImage(UIImage(named: "BackIcon"), for: .normal)
         $0.setImage(UIImage(named: "settingPressed"), for: .highlighted)
         $0.addTarget(self, action: #selector(goToSomeVC(_:)), for: .touchUpInside)
         return $0
@@ -24,7 +28,7 @@ class SelectGameViewController: UIViewController {
         $0.layer.cornerRadius = 30
         $0.axis = .vertical
         $0.distribution = .fillProportionally
-        $0.spacing = 10
+        $0.spacing = 15
         $0.alignment = .center
         
         $0.layer.shadowColor = UIColor(named: "lightBlue")?.cgColor
@@ -43,20 +47,17 @@ class SelectGameViewController: UIViewController {
     }(UILabel())
     
     private lazy var singleButton: UIButton = {
-        configureButton(titleName: "Single Player", imageName: "SinglePlayer")
+        configureButton(titleName: "Hard")
     }()
     
     private lazy var twoPlayersButton: UIButton = {
-        configureButton(titleName: "Two Players", imageName: "TwoPlayers")
+        configureButton(titleName: "Standart")
     }()
     
     private lazy var leaderboardButton: UIButton = {
-        configureButton(titleName: "Leaderboard", imageName: "LeaderboardRocket")
+        configureButton(titleName: "Easy")
     }()
     
-    private lazy var difficulBoardButton: UIButton = {
-        configureButton(titleName: "Difficulty level", imageName: "SinglePlayer")
-    }()
     
     private let spaceView = UIView()
     private let spaceViewTwo = UIView()
@@ -75,25 +76,25 @@ class SelectGameViewController: UIViewController {
         containerStackView.addArrangedSubview(selectLabel)
         containerStackView.addArrangedSubview(singleButton)
         containerStackView.addArrangedSubview(twoPlayersButton)
-        containerStackView.addArrangedSubview(difficulBoardButton)
         containerStackView.addArrangedSubview(leaderboardButton)
         containerStackView.addArrangedSubview(spaceView)
-//        
+//
         setupNavigationBar()
         setupConstraints()
     }
     
     private func setupNavigationBar() {
         let settingButton = UIBarButtonItem(customView: settingButton)
+        let backButton = UIBarButtonItem(customView: backButton)
+        navigationItem.leftBarButtonItem = backButton
         navigationItem.rightBarButtonItem = settingButton
         navigationItem.hidesBackButton = true
     }
     
-    private func configureButton(titleName: String, imageName: String) -> UIButton {
+    private func configureButton(titleName: String) -> UIButton {
         let button = UIButton(type: .system)
         var config = UIButton.Configuration.borderless()
         config.title = titleName
-        config.image = UIImage(named: imageName)?.withRenderingMode(.alwaysOriginal)
         config.imagePadding = 10
         config.attributedTitle = AttributedString(
         titleName,
@@ -114,21 +115,16 @@ class SelectGameViewController: UIViewController {
             make.centerX.equalToSuperview()
             make.centerY.equalToSuperview()
             make.width.equalTo(view.snp.width).multipliedBy(0.75)
-            make.height.equalTo(view.snp.height).multipliedBy(0.5)
-        }
-        
-        selectLabel.snp.makeConstraints { make in
-            make.height.equalTo(50)
+            make.height.equalTo(view.snp.height).multipliedBy(0.42)
         }
         
         setupButtonConstraint(button: singleButton)
         setupButtonConstraint(button: twoPlayersButton)
-        setupButtonConstraint(button: difficulBoardButton)
         setupButtonConstraint(button: leaderboardButton)
     }
     
     private func setupButtonConstraint(button: UIButton) {
-        let buttonMultiplied = 0.18
+        let buttonMultiplied = 0.22
         
         button.snp.makeConstraints { make in
             make.leading.equalTo(containerStackView.snp.leading).inset(20)
@@ -142,16 +138,13 @@ class SelectGameViewController: UIViewController {
         switch sender {
         case settingButton: pushViewController(SettingsViewController())
         case singleButton:
-            pushViewController(SinglePlayerViewController(gameMode: .medium))
+            pushViewController(SinglePlayerViewController(gameMode: .hard))
         case twoPlayersButton:
-            pushViewController(GameViewController())
+            pushViewController(SinglePlayerViewController(gameMode: .medium))
         case leaderboardButton:
-            pushViewController(LeaderboardViewController())
-        case difficulBoardButton:
-            let VC = DifficulSettingController()
-            let navigationController = UINavigationController(rootViewController: VC)
-            navigationController.modalPresentationStyle = .fullScreen
-            present(navigationController, animated: true)
+            pushViewController(SinglePlayerViewController(gameMode: .easy))
+        case backButton:
+            pushViewController(SelectGameViewController())
         default:
             print("Unknown button")
         }
@@ -165,5 +158,5 @@ class SelectGameViewController: UIViewController {
 }
 
 #Preview {
-    SelectGameViewController()
+    DifficulSettingController()
 }

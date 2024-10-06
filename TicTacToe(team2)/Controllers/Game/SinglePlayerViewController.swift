@@ -21,7 +21,7 @@ class SinglePlayerViewController: UIViewController {
     var buttonsArray: [UIButton] = []
     var gameTimer: Timer?
     var gameTime = 0
-    var gameMode: GameMode = .medium
+    var gameMode: GameMode = .easy
     var isGameTimerOn = false
     var turnTextLabel: UILabel?
     var isTimerOn: Bool?
@@ -33,6 +33,15 @@ class SinglePlayerViewController: UIViewController {
     
     enum GameMode {
         case easy, medium, hard
+    }
+    
+    init(gameMode: GameMode) {
+        super.init(nibName: nil, bundle: nil)
+        self.gameMode = gameMode
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
@@ -165,17 +174,17 @@ class SinglePlayerViewController: UIViewController {
                 self?.turnOffButtons()
                 self!.stopGame = true
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.1) {
-                    let VC = ResultViewController(result: .win)
-                    self?.navigationController?.pushViewController(VC, animated: true)
+                    let resultVC = ResultViewController(result: .win, gameMode: .singleplayer)
+                    self?.navigationController?.pushViewController(resultVC, animated: true)
                     self?.ticTacModel.stopTimer()
-                    VC.winner = winner
+                    resultVC.winner = winner
                 }
             }) {
                 drawWinningLine(for: winCombo)
             }
              else if buttonsCoordinate.count == 9 {
                  turnOffButtons()
-                let VC = ResultViewController(result: .draw)
+                 let VC = ResultViewController(result: .draw, gameMode: .singleplayer)
                 self.navigationController?.pushViewController(VC, animated: true)
                 ticTacModel.stopTimer()
             }
@@ -203,15 +212,19 @@ class SinglePlayerViewController: UIViewController {
         var computerTurn = Int.random(in: 0..<9)
         var currentButton = UIButton()
         let winCombination = ticTacModel.winCombination
-        var gameField = ticTacModel.gameField
+        let gameField = ticTacModel.gameField
+        
         
         func easyMove() {
+            print("easy")
             while ticTacModel.gameField[computerTurn] != "" {
                 computerTurn = Int.random(in: 0..<9)
             }
         }
         
+        
         func mediumMove() {
+            print("medium")
             for combination in winCombination {
                 if gameField[combination[0]] == "O" && gameField[combination[1]] == "O" && gameField[combination[2]] == "" {
                     computerTurn = combination[2]
@@ -231,6 +244,7 @@ class SinglePlayerViewController: UIViewController {
         }
         
         func hardMove() {
+            print("hard")
             for combination in winCombination {
                 if gameField[combination[0]] == "X" && gameField[combination[1]] == "X" && gameField[combination[2]] == "" {
                     computerTurn = combination[2]
@@ -280,18 +294,18 @@ class SinglePlayerViewController: UIViewController {
             if let winCombo = ticTacModel.checkWin(completion: { [weak self] winner in
                 self?.turnOffButtons()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.1) {
-                    let VC = ResultViewController(result: .lose)
-                    self?.navigationController?.pushViewController(VC, animated: true)
+                    let resultVC = ResultViewController(result: .lose, gameMode: .singleplayer)
+                    self?.navigationController?.pushViewController(resultVC, animated: true)
                     self?.ticTacModel.stopTimer()
-                    VC.winner = winner
+                    resultVC.winner = winner
                 }
             }) {
                 drawWinningLine(for: winCombo)
             }
              else if buttonsCoordinate.count == 9 {
                  turnOffButtons()
-                let VC = ResultViewController(result: .draw)
-                self.navigationController?.pushViewController(VC, animated: true)
+                 let resultVC = ResultViewController(result: .draw, gameMode: .singleplayer)
+                 self.navigationController?.pushViewController(resultVC, animated: true)
                 ticTacModel.stopTimer()
             }
         }
@@ -485,8 +499,8 @@ class SinglePlayerViewController: UIViewController {
             let seconds = time % 60
             self?.timerLabel.text = String(format: "%02d:%02d", minutes, seconds)
             if time == 0 {
-                let VC = ResultViewController(result: .lose)
-                self?.navigationController?.pushViewController(VC, animated: true)
+                let resultVC = ResultViewController(result: .lose, gameMode: .singleplayer)
+                self?.navigationController?.pushViewController(resultVC, animated: true)
             }
         }
     }

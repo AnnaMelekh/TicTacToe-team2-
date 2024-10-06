@@ -8,6 +8,11 @@
 import UIKit
 import SnapKit
 
+enum GameMode {
+    case multiplayer
+    case singleplayer
+}
+
 enum GameResult {
     case win
     case lose
@@ -21,10 +26,13 @@ class ResultViewController: UIViewController {
     var backButton: UIButton!
     var result: GameResult
     var winner: String = ""
+    var gameMode: GameMode
     
-    init(result: GameResult) {
+    init(result: GameResult, gameMode: GameMode) {
+        self.gameMode = gameMode
         self.result = result
         super.init(nibName: nil, bundle: nil)
+
     }
     
     required init?(coder: NSCoder) {
@@ -42,7 +50,7 @@ class ResultViewController: UIViewController {
         
         let resultData = getResultData(for: result)
         
-//  create  label & image)
+        //  create  label & image)
         let imageView = UIImageView(image: resultData.image)
         imageView.contentMode = .scaleAspectFit
         imageView.tintColor = .systemYellow
@@ -57,13 +65,13 @@ class ResultViewController: UIViewController {
         backgroundView.layer.cornerRadius = 150
         backgroundView.addSubview(imageView)
         
-// create ResultstackView (label + image)
+        // create ResultstackView (label + image)
         let resultStackView = UIStackView(arrangedSubviews: [label, backgroundView])
         resultStackView.axis = .vertical
         resultStackView.spacing = 20
         resultStackView.alignment = .center
         view.addSubview(resultStackView)
-    
+        
         
         playAgainButton = UIButton(type: .system)
         playAgainButton.setTitle("Play again", for: .normal)
@@ -84,31 +92,31 @@ class ResultViewController: UIViewController {
         backButton.layer.borderColor = UIColor(named: "blue")?.cgColor
         backButton.addTarget(self, action: #selector(goToSomeVCTest), for: .touchUpInside)
         
-// create ButtonStackView
+        // create ButtonStackView
         let buttonStackView = UIStackView(arrangedSubviews: [playAgainButton, backButton])
         buttonStackView.axis = .vertical
         buttonStackView.spacing = 10
         buttonStackView.alignment = .fill
         view.addSubview(buttonStackView)
- 
         
-
+        
+        
         resultStackView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.centerY.equalToSuperview().offset(-50)
-                }
+        }
         
-
+        
         imageView.snp.makeConstraints { make in
             make.width.height.equalTo(220)
             make.edges.equalToSuperview().inset(50)
         }
         
         backgroundView.snp.makeConstraints { make in
-                    make.width.height.equalTo(300)
-                }
+            make.width.height.equalTo(300)
+        }
         
-
+        
         buttonStackView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-20)
@@ -139,14 +147,22 @@ class ResultViewController: UIViewController {
     }
     
     
-
+    
     @objc
     private func goToSomeVCTest(_ sender: UIButton) {
         if sender == playAgainButton {
             let gameVC = GameViewController()
-                let navigationController = self.navigationController
+//            let navigationController = self.navigationController
+//            navigationController?.setViewControllers([SelectGameViewController(), gameVC], animated: true)
+//            
+            if gameMode == .multiplayer {
+                let gameVC = GameViewController()  // Игра с другом
                 navigationController?.setViewControllers([SelectGameViewController(), gameVC], animated: true)
-        
+            } else if gameMode == .singleplayer {
+                let singlePlayerVC = SinglePlayerViewController(gameMode: .easy)  // Игра с ботом
+                navigationController?.setViewControllers([SelectGameViewController(), singlePlayerVC], animated: true)
+            }
+            
         } else if sender == backButton {
             pushViewController(SelectGameViewController())
         }
@@ -163,4 +179,4 @@ class ResultViewController: UIViewController {
 
 
 
-#Preview { ResultViewController(result: .win) }
+//#Preview { ResultViewController(result: .win) }

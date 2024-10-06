@@ -14,6 +14,7 @@ class SettingsViewController: UIViewController {
     var settings: Settings?
     var pickedSkin = Skin(oSkin: "Oskin2", xSkin: "Xskin2", isChecked: true)
     var skins = Skins().skins
+    var ticTac = TicTacModel()
     
     private lazy var topSettingsStack: UIStackView = {
         let stackView = ViewFactory.createShadowStackView()
@@ -29,8 +30,25 @@ class SettingsViewController: UIViewController {
     private lazy var gameTimeSwitch: UISwitch = {
         let switchView = UISwitch()
         switchView.isOn = settings?.isGameTimeEnabled ?? false
+        switchView.addTarget(self, action: #selector(gameTimeSwitchChanged), for: .valueChanged)
         return switchView
     }()
+    
+    private lazy var newTimeSwitch: UISwitch = {
+        let switchView = UISwitch()
+        switchView.isOn = settings?.isGameTimeEnabled ?? false
+        switchView.addTarget(self, action: #selector(gameTimeSwitchChanged), for: .valueChanged)
+        return switchView
+    }()
+    
+    @objc
+    private func gameTimeSwitchChanged(_ sender: UISwitch) {
+        if sender.isOn {
+            timeView.isHidden = false
+        } else {
+            timeView.isHidden = true
+        }
+    }
     
     private var audioPlayer: AVAudioPlayer?
     
@@ -39,6 +57,59 @@ class SettingsViewController: UIViewController {
         switchView.isOn = settings?.isMusicEnabled ?? false
         switchView.addTarget(self, action: #selector(switchChanged), for: .valueChanged)
         return switchView
+    }()
+    
+    private lazy var timeView: UIView = {
+      let view = UIView()
+        view.backgroundColor = UIColor(named: "lightBlue")
+        view.layer.cornerRadius = 25
+        view.clipsToBounds = true
+        
+        return view
+    }()
+    
+    private lazy var buttonOne: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("30 min", for: .normal)
+        button.backgroundColor = UIColor(named: "lightBlue")
+        button.setBackgroundColor(UIColor(named: "blue")!, for: .highlighted)
+        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        button.contentHorizontalAlignment = .left
+        button.addTarget(self, action: #selector(pressButtonOne), for: .touchUpInside)
+        return button
+    }()
+    
+    private let buttonTwo: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("60 min", for: .normal)
+        button.backgroundColor = UIColor(named: "lightBlue")
+        button.setBackgroundColor(UIColor(named: "blue")!, for: .highlighted)
+        button.setBackgroundColor(.black, for: .highlighted)
+        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        button.contentHorizontalAlignment = .left
+        return button
+    }()
+    
+    private let buttonThree: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("120 min", for: .normal)
+        button.backgroundColor = UIColor(named: "lightBlue")
+        button.setBackgroundColor(UIColor(named: "blue")!, for: .highlighted)
+        button.setBackgroundColor(.black, for: .highlighted)
+        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        button.contentHorizontalAlignment = .left
+        return button
+    }()
+    
+    let label: UILabel = {
+      let label = UILabel()
+        label.text = "Duration"
+        label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        label.textColor = .black
+        return label
     }()
     
     private var skinsCollectionView: UICollectionView!
@@ -104,12 +175,18 @@ class SettingsViewController: UIViewController {
             let gameMusicView = createUpperBlock(title: "Music", view: gameMusicSwitch)
             topSettingsStack.addArrangedSubview(gameTimeSwitchView)
             topSettingsStack.addArrangedSubview(gameMusicView)
+            topSettingsStack.addArrangedSubview(timeView)
+            
+            timeView.addSubview(label)
+            timeView.addSubview(buttonOne)
+            timeView.addSubview(buttonTwo)
+            timeView.addSubview(buttonThree)
+            
             
             
             topSettingsStack.snp.makeConstraints { make in
                 make.leading.trailing.equalToSuperview().inset(20)
                 make.top.equalToSuperview().offset(100)
-                make.width.equalTo(view.frame.width - 40)
                 
             }
             skinsCollectionView.snp.makeConstraints{ make in
@@ -118,6 +195,39 @@ class SettingsViewController: UIViewController {
                 make.bottom.equalTo(contentView.snp.bottom)
             }
             
+            timeView.snp.makeConstraints { make in
+                make.height.equalTo(200)
+                make.width.equalTo(50)
+            }
+            
+            label.snp.makeConstraints { make in
+                make.top.trailing.equalToSuperview()
+                make.leading.equalToSuperview().inset(20)
+                make.height.equalTo(40)
+            }
+            
+            buttonOne.snp.makeConstraints { make in
+                make.top.equalTo(label.snp.bottom)
+                make.leading.equalToSuperview().inset(20)
+                make.trailing.equalToSuperview()
+                make.height.equalTo(50)
+                
+            }
+            
+            buttonTwo.snp.makeConstraints { make in
+                make.top.equalTo(buttonOne.snp.bottom)
+                make.leading.equalToSuperview().inset(20)
+                make.trailing.equalToSuperview()
+                make.height.equalTo(50)
+            }
+            
+            buttonThree.snp.makeConstraints { make in
+                make.top.equalTo(buttonTwo.snp.bottom)
+                make.leading.equalToSuperview().inset(20)
+                make.trailing.equalToSuperview()
+                make.height.equalTo(50)
+                make.bottom.equalToSuperview()
+            }
             
         }
         
@@ -256,6 +366,38 @@ extension SettingsViewController: UICollectionViewDataSource, UICollectionViewDe
         pickedSkin = settings?.availableSkins[indexPath.item] ?? skins[indexPath.item]
         skinsCollectionView.reloadData()
         print(pickedSkin)
+    }
+    
+    private func configureButton(titleName: String) -> UIButton {
+        let button = UIButton(type: .system)
+        var config = UIButton.Configuration.borderless()
+        config.title = titleName
+        config.imagePadding = 10
+        config.attributedTitle = AttributedString(
+        titleName,
+        attributes: AttributeContainer([.font: UIFont.systemFont(ofSize: 20, weight: .semibold),
+                                        .foregroundColor: UIColor.black])
+        )
+        button.configuration = config
+        button.backgroundColor = UIColor(named: "lightBlue")
+        button.layer.cornerRadius = 30
+        
+        return button
+    }
+    
+    @objc
+    private func pressButtonOne() {
+        ticTac.gameTime = 60
+    }
+    
+    @objc
+    private func pressButtonTwo() {
+        ticTac.gameTime = 60
+    }
+    
+    @objc
+    private func pressButtonThree() {
+        ticTac.gameTime = 120
     }
 }
 
