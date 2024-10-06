@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		15775F902CAF2F420046DC4F /* ViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15775F8F2CAF2F420046DC4F /* ViewFactory.swift */; };
+		15775F942CB062D40046DC4F /* GameErrorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15775F932CB062CF0046DC4F /* GameErrorService.swift */; };
 		15991A372CAA045100B6CDE8 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 15991A362CAA045100B6CDE8 /* SnapKit */; };
 		15991A452CAA0A3400B6CDE8 /* SelectGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15991A442CAA0A2C00B6CDE8 /* SelectGameViewController.swift */; };
 		15991A472CAA0A6A00B6CDE8 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15991A462CAA0A6100B6CDE8 /* SettingsViewController.swift */; };
@@ -14,6 +16,16 @@
 		15991A4B2CAA0AC600B6CDE8 /* HowToPlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15991A4A2CAA0ABC00B6CDE8 /* HowToPlayViewController.swift */; };
 		15991A4F2CAA0B1000B6CDE8 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15991A4E2CAA0B0500B6CDE8 /* ResultViewController.swift */; };
 		15991A512CAA0B2A00B6CDE8 /* LeaderboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15991A502CAA0B1B00B6CDE8 /* LeaderboardViewController.swift */; };
+		15991A6F2CAD345500B6CDE8 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15991A6E2CAD345500B6CDE8 /* Settings.swift */; };
+		15991A712CAD385000B6CDE8 /* SkinCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15991A702CAD385000B6CDE8 /* SkinCell.swift */; };
+		37FC99E12CADE0C800A25B11 /* LeaderboardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FC99E02CADE0C800A25B11 /* LeaderboardCell.swift */; };
+		37FC99E92CB199EB00A25B11 /* SinglePlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FC99E82CB199EB00A25B11 /* SinglePlayerViewController.swift */; };
+		DD132CCF2CB2642100B7EF3B /* DifficulSettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD132CCE2CB2642100B7EF3B /* DifficulSettingController.swift */; };
+		DD132CD22CB2880600B7EF3B /* button+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD132CD12CB2880600B7EF3B /* button+Ex.swift */; };
+		DDE4C6E82CAD4ABF007CED8D /* TicTacModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE4C6E72CAD4ABF007CED8D /* TicTacModel.swift */; };
+		E71ED1212CB144960025C4A5 /* music1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E71ED1202CB144960025C4A5 /* music1.mp3 */; };
+		E71ED1272CB1AA2A0025C4A5 /* BackgroundMusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71ED1262CB1AA2A0025C4A5 /* BackgroundMusicPlayer.swift */; };
+		E79CC3612CAF0CE8009EC06B /* HowToPlayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79CC3602CAF0CE8009EC06B /* HowToPlayCell.swift */; };
 		F306EADF2CA9AF8000092870 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F306EADE2CA9AF8000092870 /* AppDelegate.swift */; };
 		F306EAE12CA9AF8000092870 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F306EAE02CA9AF8000092870 /* SceneDelegate.swift */; };
 		F306EAE32CA9AF8000092870 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F306EAE22CA9AF8000092870 /* OnboardingViewController.swift */; };
@@ -21,18 +33,31 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		15775F8F2CAF2F420046DC4F /* ViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewFactory.swift; path = "TicTacToe(team2)/ViewFactory.swift"; sourceTree = SOURCE_ROOT; };
+		15775F932CB062CF0046DC4F /* GameErrorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameErrorService.swift; sourceTree = "<group>"; };
 		15991A442CAA0A2C00B6CDE8 /* SelectGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGameViewController.swift; sourceTree = "<group>"; };
 		15991A462CAA0A6100B6CDE8 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		15991A482CAA0AA600B6CDE8 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		15991A4A2CAA0ABC00B6CDE8 /* HowToPlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToPlayViewController.swift; sourceTree = "<group>"; };
 		15991A4E2CAA0B0500B6CDE8 /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 		15991A502CAA0B1B00B6CDE8 /* LeaderboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardViewController.swift; sourceTree = "<group>"; };
+		15991A6E2CAD345500B6CDE8 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Settings.swift; path = "TicTacToe(team2)/Settings.swift"; sourceTree = SOURCE_ROOT; };
+		15991A702CAD385000B6CDE8 /* SkinCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkinCell.swift; sourceTree = "<group>"; };
+		37FC99E02CADE0C800A25B11 /* LeaderboardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardCell.swift; sourceTree = "<group>"; };
+		37FC99E82CB199EB00A25B11 /* SinglePlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePlayerViewController.swift; sourceTree = "<group>"; };
+		DD132CCE2CB2642100B7EF3B /* DifficulSettingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifficulSettingController.swift; sourceTree = "<group>"; };
+		DD132CD12CB2880600B7EF3B /* button+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "button+Ex.swift"; path = "TicTacToe(team2)/Controllers/button+Ex.swift"; sourceTree = SOURCE_ROOT; };
+		DDE4C6E72CAD4ABF007CED8D /* TicTacModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TicTacModel.swift; path = "TicTacToe(team2)/Resources/Assets.xcassets/Skins/xOskin.imageset/TicTacModel.swift"; sourceTree = SOURCE_ROOT; };
+		E71ED1202CB144960025C4A5 /* music1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music1.mp3; sourceTree = "<group>"; };
+		E71ED1262CB1AA2A0025C4A5 /* BackgroundMusicPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundMusicPlayer.swift; sourceTree = "<group>"; };
+		E79CC3602CAF0CE8009EC06B /* HowToPlayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToPlayCell.swift; sourceTree = "<group>"; };
 		F306EADB2CA9AF8000092870 /* TicTacToe(team2).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TicTacToe(team2).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F306EADE2CA9AF8000092870 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F306EAE02CA9AF8000092870 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		F306EAE22CA9AF8000092870 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		F306EAE72CA9AF8200092870 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F306EAEC2CA9AF8200092870 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F33F8D4E2CB1E1FB008EBD37 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.markdown; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +72,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		15775F922CB062C70046DC4F /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				15775F932CB062CF0046DC4F /* GameErrorService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		15991A382CAA059D00B6CDE8 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -57,6 +90,7 @@
 				15991A412CAA098700B6CDE8 /* HowToPlay */,
 				15991A422CAA099400B6CDE8 /* Result */,
 				15991A432CAA09DA00B6CDE8 /* Leaderboard */,
+				DD132CD02CB2646E00B7EF3B /* DifficulSettingController */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -73,6 +107,7 @@
 		15991A3A2CAA060C00B6CDE8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E71ED1202CB144960025C4A5 /* music1.mp3 */,
 				F306EAE72CA9AF8200092870 /* Assets.xcassets */,
 				F306EAEC2CA9AF8200092870 /* Info.plist */,
 			);
@@ -82,6 +117,8 @@
 		15991A3B2CAA062300B6CDE8 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				15775F8F2CAF2F420046DC4F /* ViewFactory.swift */,
+				DD132CD12CB2880600B7EF3B /* button+Ex.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -89,6 +126,8 @@
 		15991A3C2CAA067000B6CDE8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				DDE4C6E72CAD4ABF007CED8D /* TicTacModel.swift */,
+				15991A6E2CAD345500B6CDE8 /* Settings.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -112,6 +151,7 @@
 		15991A3F2CAA081500B6CDE8 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				15991A6D2CAD33FC00B6CDE8 /* SkinCell */,
 				15991A462CAA0A6100B6CDE8 /* SettingsViewController.swift */,
 			);
 			path = Settings;
@@ -121,6 +161,7 @@
 			isa = PBXGroup;
 			children = (
 				15991A482CAA0AA600B6CDE8 /* GameViewController.swift */,
+				37FC99E82CB199EB00A25B11 /* SinglePlayerViewController.swift */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -129,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				15991A4A2CAA0ABC00B6CDE8 /* HowToPlayViewController.swift */,
+				E79CC3602CAF0CE8009EC06B /* HowToPlayCell.swift */,
 			);
 			path = HowToPlay;
 			sourceTree = "<group>";
@@ -145,13 +187,32 @@
 			isa = PBXGroup;
 			children = (
 				15991A502CAA0B1B00B6CDE8 /* LeaderboardViewController.swift */,
+				37FC99E02CADE0C800A25B11 /* LeaderboardCell.swift */,
 			);
 			path = Leaderboard;
+			sourceTree = "<group>";
+		};
+		15991A6D2CAD33FC00B6CDE8 /* SkinCell */ = {
+			isa = PBXGroup;
+			children = (
+				15991A702CAD385000B6CDE8 /* SkinCell.swift */,
+				E71ED1262CB1AA2A0025C4A5 /* BackgroundMusicPlayer.swift */,
+			);
+			path = SkinCell;
+			sourceTree = "<group>";
+		};
+		DD132CD02CB2646E00B7EF3B /* DifficulSettingController */ = {
+			isa = PBXGroup;
+			children = (
+				DD132CCE2CB2642100B7EF3B /* DifficulSettingController.swift */,
+			);
+			path = DifficulSettingController;
 			sourceTree = "<group>";
 		};
 		F306EAD22CA9AF8000092870 = {
 			isa = PBXGroup;
 			children = (
+				F33F8D4E2CB1E1FB008EBD37 /* README.md */,
 				F306EADD2CA9AF8000092870 /* TicTacToe(team2) */,
 				F306EADC2CA9AF8000092870 /* Products */,
 			);
@@ -168,6 +229,7 @@
 		F306EADD2CA9AF8000092870 /* TicTacToe(team2) */ = {
 			isa = PBXGroup;
 			children = (
+				15775F922CB062C70046DC4F /* Services */,
 				15991A3C2CAA067000B6CDE8 /* Model */,
 				15991A3B2CAA062300B6CDE8 /* Extension */,
 				15991A392CAA05C100B6CDE8 /* App */,
@@ -238,6 +300,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E71ED1212CB144960025C4A5 /* music1.mp3 in Resources */,
 				F306EAE82CA9AF8200092870 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -250,14 +313,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				F306EAE32CA9AF8000092870 /* OnboardingViewController.swift in Sources */,
+				37FC99E12CADE0C800A25B11 /* LeaderboardCell.swift in Sources */,
+				DD132CCF2CB2642100B7EF3B /* DifficulSettingController.swift in Sources */,
 				F306EADF2CA9AF8000092870 /* AppDelegate.swift in Sources */,
 				15991A452CAA0A3400B6CDE8 /* SelectGameViewController.swift in Sources */,
 				15991A4F2CAA0B1000B6CDE8 /* ResultViewController.swift in Sources */,
+				15991A6F2CAD345500B6CDE8 /* Settings.swift in Sources */,
+				15775F942CB062D40046DC4F /* GameErrorService.swift in Sources */,
 				15991A512CAA0B2A00B6CDE8 /* LeaderboardViewController.swift in Sources */,
+				15775F902CAF2F420046DC4F /* ViewFactory.swift in Sources */,
+				DD132CD22CB2880600B7EF3B /* button+Ex.swift in Sources */,
+				15991A712CAD385000B6CDE8 /* SkinCell.swift in Sources */,
 				15991A4B2CAA0AC600B6CDE8 /* HowToPlayViewController.swift in Sources */,
 				15991A472CAA0A6A00B6CDE8 /* SettingsViewController.swift in Sources */,
 				15991A492CAA0AAE00B6CDE8 /* GameViewController.swift in Sources */,
+				37FC99E92CB199EB00A25B11 /* SinglePlayerViewController.swift in Sources */,
+				E79CC3612CAF0CE8009EC06B /* HowToPlayCell.swift in Sources */,
 				F306EAE12CA9AF8000092870 /* SceneDelegate.swift in Sources */,
+				E71ED1272CB1AA2A0025C4A5 /* BackgroundMusicPlayer.swift in Sources */,
+				DDE4C6E82CAD4ABF007CED8D /* TicTacModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -390,7 +464,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8HS7XS34C5;
+				DEVELOPMENT_TEAM = FBKYC38SUZ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "TicTacToe(team2)/Resources/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -398,6 +472,7 @@
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -422,7 +497,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8HS7XS34C5;
+				DEVELOPMENT_TEAM = FBKYC38SUZ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "TicTacToe(team2)/Resources/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -430,6 +505,7 @@
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
