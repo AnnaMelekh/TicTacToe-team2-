@@ -29,7 +29,7 @@ class TicTacModel {
     
     
     init() {
-        loadBestTime()
+        bestTimes = loadBestTime()
     }
     
     func startTimer() {

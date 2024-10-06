@@ -8,6 +8,11 @@
 import UIKit
 import SnapKit
 
+enum GameMode {
+    case multiplayer
+    case singleplayer
+}
+
 enum GameResult {
     case win
     case lose
@@ -21,8 +26,12 @@ class ResultViewController: UIViewController {
     var backButton: UIButton!
     var result: GameResult
     var winner: String = ""
+    var gameMode: GameMode
+
     
-    init(result: GameResult) {
+    init(result: GameResult, gameMode: GameMode) {
+            self.gameMode = gameMode
+
         self.result = result
         super.init(nibName: nil, bundle: nil)
     }
@@ -143,11 +152,17 @@ class ResultViewController: UIViewController {
     @objc
     private func goToSomeVCTest(_ sender: UIButton) {
         if sender == playAgainButton {
-            let gameVC = GameViewController()
-                let navigationController = self.navigationController
+            
+            if gameMode == .multiplayer {
+                let gameVC = GameViewController()  // Игра с другом
                 navigationController?.setViewControllers([SelectGameViewController(), gameVC], animated: true)
+                
+            } else if gameMode == .singleplayer {
+                let singlePlayerVC = SinglePlayerViewController()  // Игра с ботом
+                navigationController?.setViewControllers([SelectGameViewController(), singlePlayerVC], animated: true)
+            }}
         
-        } else if sender == backButton {
+        else if sender == backButton {
             pushViewController(SelectGameViewController())
         }
     }
@@ -163,4 +178,4 @@ class ResultViewController: UIViewController {
 
 
 
-#Preview { ResultViewController(result: .win) }
+//#Preview { ResultViewController(result: .win) }
