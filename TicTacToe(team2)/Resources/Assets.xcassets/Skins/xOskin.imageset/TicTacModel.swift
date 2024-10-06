@@ -19,7 +19,7 @@ class TicTacModel {
     ]
     var turnTimer: Timer?
     var bestTimes: [String] = []
-    var gameTime = 30 {
+    var gameTime = 60 {
         didSet {
             timerUpdate?(gameTime)
         }

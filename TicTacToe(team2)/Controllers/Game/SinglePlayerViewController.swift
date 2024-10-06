@@ -23,11 +23,10 @@ class SinglePlayerViewController: UIViewController {
     var gameTime = 0
     var gameMode: GameMode = .medium
     var isGameTimerOn = false
+    var turnTextLabel: UILabel?
+    var isTimerOn: Bool?
     
     var stopGame = false
-    var skin = SettingsViewController().skins
-    var skinO = ""
-    var skinX = ""
     
     var settingsManager = SettingsManager()
     var settings: Settings?
@@ -40,13 +39,12 @@ class SinglePlayerViewController: UIViewController {
         super.viewDidLoad()
         getSettings()
         view.backgroundColor = UIColor(named: "background")
-        navigationItem.hidesBackButton = true
         topStack = createTopStack()
         
-        currentTurnStack = createTurnStack(image: ticTacModel.getTurnImage())
-        
+        currentTurnStack = createTurnStack(image: getImageIcons().x)
         field = createField()
         field.addSubview(createVStackButtons())
+        setTimer()
         
     }
     
@@ -150,24 +148,19 @@ class SinglePlayerViewController: UIViewController {
     
     @objc
     private func buttonPress(_ sender: UIButton) {
-        for i in skin {
-            if i.isChecked == true {
-                skinO = i.oSkin
-                skinX = i.xSkin
-                print(123)
-            }
-        }
         
         if !isGameTimerOn { startGameTimer() }
         updateTimerLabel()
-        
+        if isTimerOn! {
+            ticTacModel.startTimer()
+        }
         let index = sender.tag
         buttonsCoordinate[index] = sender.convert(sender.bounds.origin, to: view)
         if ticTacModel.makeMove(index: index) {
-            ticTacModel.startTimer()
-            let imageName = ticTacModel.isOTurn ? skinX : skinO
-            sender.setImage(UIImage(named: imageName), for: .normal)
-            icon?.image = ticTacModel.getTurnImage()
+            let imageIcon = ticTacModel.isOTurn ? getImageIcons().x : getImageIcons().o
+            sender.setImage(imageIcon, for: .normal)
+            icon?.image = ticTacModel.isOTurn ? getImageIcons().o : getImageIcons().x
+            turnTextLabel?.text = ticTacModel.isOTurn ? "Bot AI turn" : "You turn"
             if let winCombo = ticTacModel.checkWin(completion: { [weak self] winner in
                 self?.turnOffButtons()
                 self!.stopGame = true
@@ -219,7 +212,6 @@ class SinglePlayerViewController: UIViewController {
         }
         
         func mediumMove() {
-            print(32122323)
             for combination in winCombination {
                 if gameField[combination[0]] == "O" && gameField[combination[1]] == "O" && gameField[combination[2]] == "" {
                     computerTurn = combination[2]
@@ -276,12 +268,15 @@ class SinglePlayerViewController: UIViewController {
         let index = currentButton.tag
         if !isGameTimerOn { startGameTimer() }
         updateTimerLabel()
-        ticTacModel.startTimer()
+        if isTimerOn! {
+            ticTacModel.startTimer()
+        }
         buttonsCoordinate[index] = currentButton.convert(currentButton.bounds.origin, to: view)
         if ticTacModel.makeMove(index: index) {
-            let imageName = ticTacModel.isOTurn ? skinX : skinO
-            currentButton.setImage(UIImage(named: imageName), for: .normal)
-            icon?.image = ticTacModel.getTurnImage()
+            var imageIcon = ticTacModel.isOTurn ? getImageIcons().x : getImageIcons().o
+            currentButton.setImage(imageIcon, for: .normal)
+            icon?.image = getImageIcons().x
+            turnTextLabel?.text = "You turn"
             if let winCombo = ticTacModel.checkWin(completion: { [weak self] winner in
                 self?.turnOffButtons()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.1) {
@@ -315,10 +310,10 @@ class SinglePlayerViewController: UIViewController {
         
         view.addSubview(hStack)
         
-        hStack.addArrangedSubview(createContent(item: createView(), image: UIImage(named: "Xskin1")!, title: "You"))
+        hStack.addArrangedSubview(createContent(item: createView(), image: getImageIcons().x, title: "You"))
         
         hStack.addArrangedSubview(createTimerView())
-        hStack.addArrangedSubview(createContent(item: createView(), image: UIImage(named: "Oskin1")!, title: "Bot Ai"))
+        hStack.addArrangedSubview(createContent(item: createView(), image: getImageIcons().o, title: "Bot Ai"))
         
         NSLayoutConstraint.activate([
             hStack.topAnchor.constraint(greaterThanOrEqualToSystemSpacingBelow: view.safeAreaLayoutGuide.topAnchor, multiplier: 0.5),
@@ -344,20 +339,20 @@ class SinglePlayerViewController: UIViewController {
         icon?.widthAnchor.constraint(equalToConstant: 50).isActive = true
         icon?.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
-        let text = UILabel()
-        text.text = "Your turn"
-        text.textColor = .black
-        text.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        turnTextLabel = UILabel()
+        turnTextLabel?.text = "Your turn"
+        turnTextLabel?.textColor = .black
+        turnTextLabel?.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         
         hStack.addArrangedSubview(icon!)
-        hStack.addArrangedSubview(text)
+        hStack.addArrangedSubview(turnTextLabel!)
         
         
         
         NSLayoutConstraint.activate([
             hStack.topAnchor.constraint(equalTo: topStack.bottomAnchor, constant: 50),
             hStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            hStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -105)
+            hStack.widthAnchor.constraint(equalToConstant: 300)
         ])
         return hStack
     }
@@ -542,6 +537,19 @@ class SinglePlayerViewController: UIViewController {
                 print("Didnt loaddata")
             }
         })
+    }
+    
+    private func getImageIcons() -> (x: UIImage, o: UIImage) {
+        let xImageName = (settings?.skin.xSkin)!
+        let oImageName = (settings?.skin.oSkin)!
+        return (UIImage(named: xImageName)!, UIImage(named: oImageName)!)
+    }
+    
+    private func setTimer() {
+        isTimerOn = settings?.isGameTimeEnabled
+        if !isTimerOn! {
+            timerLabel.isHidden = true
+        }
     }
     
 }
