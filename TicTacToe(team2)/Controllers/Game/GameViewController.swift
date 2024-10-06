@@ -22,22 +22,26 @@ class GameViewController: UIViewController {
     var gameTimer: Timer?
     var gameTime = 0
     var isGameTimerOn = false
+    var isGameFinished = false
+    var xImage: String = ""
+    var oImage: String = ""
+    var turnTextLabel: UILabel?
+    var isTimerOn: Bool?
     
     var settingsManager = SettingsManager()
     var settings: Settings?
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         getSettings()
         view.backgroundColor = UIColor(named: "background")
         topStack = createTopStack()
-        
-        currentTurnStack = createTurnStack(image: ticTacModel.getTurnImage())
-        
+        currentTurnStack = createTurnStack(image: getImageIcons().x)
         field = createField()
         field.addSubview(createVStackButtons())
-     
-        
+        setTimer()
     }
     
     
@@ -45,7 +49,6 @@ class GameViewController: UIViewController {
     
     func createVStackButtons() -> UIStackView {
         let vStack = UIStackView()
-        
         vStack.widthAnchor.constraint(equalToConstant: 290).isActive = true
         vStack.heightAnchor.constraint(equalToConstant: 290).isActive = true
         vStack.axis = .vertical
@@ -53,7 +56,6 @@ class GameViewController: UIViewController {
         vStack.distribution = .fillEqually
         vStack.alignment = .center
         vStack.translatesAutoresizingMaskIntoConstraints = false
-        
         vStack.addArrangedSubview(createStackOfButtons(row: 1))
         vStack.addArrangedSubview(createStackOfButtons(row: 2))
         vStack.addArrangedSubview(createStackOfButtons(row: 3))
@@ -142,20 +144,29 @@ class GameViewController: UIViewController {
     private func buttonPress(_ sender: UIButton) {
         if !isGameTimerOn { startGameTimer() }
         updateTimerLabel()
-        ticTacModel.startTimer()
+        if isTimerOn! {
+            ticTacModel.startTimer()
+        }
         let index = sender.tag
         buttonsCoordinate[index] = sender.convert(sender.bounds.origin, to: view)
         if ticTacModel.makeMove(index: index) {
-            let imageName = ticTacModel.isOTurn ? "Xskin1" : "Oskin1"
-            sender.setImage(UIImage(named: imageName), for: .normal)
-            icon?.image = ticTacModel.getTurnImage()
+            let imageIcon = ticTacModel.isOTurn ? getImageIcons().x : getImageIcons().o
+            sender.setImage(imageIcon, for: .normal)
+            icon?.image = ticTacModel.isOTurn ? getImageIcons().o : getImageIcons().x
+            turnTextLabel?.text = ticTacModel.isOTurn ? "Player Two Turn" : "You turn"
+            sender.isUserInteractionEnabled = false
             if let winCombo = ticTacModel.checkWin(completion: { [weak self] winner in
-                self?.turnOffButtons()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.1) {
-                    let resultVC = ResultViewController(result: .win, gameMode: .multiplayer)
+
+                if self?.isGameFinished == false {
+                    self?.isGameFinished = true
+                    self?.convertTime()
+                    self?.turnOffButtons()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.1) {
+                        let resultVC = ResultViewController(result: .win, gameMode: .multiplayer)
                     self?.navigationController?.pushViewController(resultVC, animated: true)
                     self?.ticTacModel.stopTimer()
                     resultVC.winner = winner
+                    }
                 }
             }) {
                 drawWinningLine(for: winCombo)
@@ -181,11 +192,11 @@ class GameViewController: UIViewController {
         hStack.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(hStack)
-        
-        hStack.addArrangedSubview(createContent(item: createView(), image: UIImage(named: "Xskin1")!, title: "You"))
+
+        hStack.addArrangedSubview(createContent(item: createView(), image: getImageIcons().x, title: "You"))
         
         hStack.addArrangedSubview(createTimerView())
-        hStack.addArrangedSubview(createContent(item: createView(), image: UIImage(named: "Oskin1")!, title: "Player 2"))
+        hStack.addArrangedSubview(createContent(item: createView(), image: getImageIcons().o, title: "Player 2"))
         
         NSLayoutConstraint.activate([
             hStack.topAnchor.constraint(greaterThanOrEqualToSystemSpacingBelow: view.safeAreaLayoutGuide.topAnchor, multiplier: 0.5),
@@ -211,20 +222,20 @@ class GameViewController: UIViewController {
         icon?.widthAnchor.constraint(equalToConstant: 50).isActive = true
         icon?.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
-        let text = UILabel()
-        text.text = "Your turn"
-        text.textColor = .black
-        text.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        turnTextLabel = UILabel()
+        turnTextLabel?.text = "Your turn"
+        turnTextLabel?.textColor = .black
+        turnTextLabel?.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         
         hStack.addArrangedSubview(icon!)
-        hStack.addArrangedSubview(text)
+        hStack.addArrangedSubview(turnTextLabel!)
         
         
         
         NSLayoutConstraint.activate([
             hStack.topAnchor.constraint(equalTo: topStack.bottomAnchor, constant: 50),
             hStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            hStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -105)
+            hStack.widthAnchor.constraint(equalToConstant: 300)
         ])
         return hStack
     }
@@ -364,7 +375,6 @@ class GameViewController: UIViewController {
     }
     
     private func turnOffButtons() {
-        convertTime(time: gameTime)
         gameTimer?.invalidate()
         gameTime = 0
         for button in buttonss {
@@ -372,13 +382,15 @@ class GameViewController: UIViewController {
         }
     }
     
-    private func convertTime(time: Int) {
+    private func convertTime() {
+        let time = gameTime
         let minutes = time / 60
         let seconds = time % 60
         let convertTime = String(format: "%02d:%02d", minutes, seconds)
         ticTacModel.bestTimes.append(convertTime)
         UserDefaults.standard.set(ticTacModel.bestTimes, forKey: "bestTimes")
     }
+    
     
     private func startGameTimer() {
         isGameTimerOn.toggle()
@@ -410,6 +422,20 @@ class GameViewController: UIViewController {
             }
         })
     }
+    
+    private func getImageIcons() -> (x: UIImage, o: UIImage) {
+        let xImageName = (settings?.skin.xSkin)!
+        let oImageName = (settings?.skin.oSkin)!
+        return (UIImage(named: xImageName)!, UIImage(named: oImageName)!)
+    }
+    
+    private func setTimer() {
+        isTimerOn = settings?.isGameTimeEnabled
+        if !isTimerOn! {
+            timerLabel.isHidden = true
+        }
+    }
+    
     
 }
 
