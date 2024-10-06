@@ -21,7 +21,7 @@ class SinglePlayerViewController: UIViewController {
     var buttonsArray: [UIButton] = []
     var gameTimer: Timer?
     var gameTime = 0
-    var gameMode: GameMode = .medium
+    var gameMode: GameMode = .easy
     var isGameTimerOn = false
     var turnTextLabel: UILabel?
     var isTimerOn: Bool?
@@ -33,6 +33,15 @@ class SinglePlayerViewController: UIViewController {
     
     enum GameMode {
         case easy, medium, hard
+    }
+    
+    init(gameMode: GameMode) {
+        super.init(nibName: nil, bundle: nil)
+        self.gameMode = gameMode
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
@@ -205,13 +214,17 @@ class SinglePlayerViewController: UIViewController {
         let winCombination = ticTacModel.winCombination
         let gameField = ticTacModel.gameField
         
+        
         func easyMove() {
+            print("easy")
             while ticTacModel.gameField[computerTurn] != "" {
                 computerTurn = Int.random(in: 0..<9)
             }
         }
         
+        
         func mediumMove() {
+            print("medium")
             for combination in winCombination {
                 if gameField[combination[0]] == "O" && gameField[combination[1]] == "O" && gameField[combination[2]] == "" {
                     computerTurn = combination[2]
@@ -231,6 +244,7 @@ class SinglePlayerViewController: UIViewController {
         }
         
         func hardMove() {
+            print("hard")
             for combination in winCombination {
                 if gameField[combination[0]] == "X" && gameField[combination[1]] == "X" && gameField[combination[2]] == "" {
                     computerTurn = combination[2]

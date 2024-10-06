@@ -159,7 +159,7 @@ class ResultViewController: UIViewController {
                 let gameVC = GameViewController()  // Игра с другом
                 navigationController?.setViewControllers([SelectGameViewController(), gameVC], animated: true)
             } else if gameMode == .singleplayer {
-                let singlePlayerVC = SinglePlayerViewController()  // Игра с ботом
+                let singlePlayerVC = SinglePlayerViewController(gameMode: .easy)  // Игра с ботом
                 navigationController?.setViewControllers([SelectGameViewController(), singlePlayerVC], animated: true)
             }
             

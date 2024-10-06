@@ -142,7 +142,7 @@ class SelectGameViewController: UIViewController {
         switch sender {
         case settingButton: pushViewController(SettingsViewController())
         case singleButton:
-            pushViewController(SinglePlayerViewController())
+            pushViewController(SinglePlayerViewController(gameMode: .medium))
         case twoPlayersButton:
             pushViewController(GameViewController())
         case leaderboardButton:
