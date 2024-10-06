@@ -1,19 +1,23 @@
 //
-//  Untitled.swift
+//  DifficulSettingController.swift
 //  TicTacToe(team2)
 //
-//  Created by Igor Guryan on 30.09.2024.
+//  Created by Олег Дербин on 06.10.2024.
 //
 
-
 import UIKit
-import SnapKit
 
-class SelectGameViewController: UIViewController {
+class DifficulSettingController: UIViewController {
     
-    //MARK: - UI elements
     private lazy var settingButton: UIButton = {
         $0.setImage(UIImage(named: "Settings"), for: .normal)
+        $0.setImage(UIImage(named: "settingPressed"), for: .highlighted)
+        $0.addTarget(self, action: #selector(goToSomeVC(_:)), for: .touchUpInside)
+        return $0
+    }(UIButton())
+    
+    private lazy var backButton: UIButton = {
+        $0.setImage(UIImage(named: "BackIcon"), for: .normal)
         $0.setImage(UIImage(named: "settingPressed"), for: .highlighted)
         $0.addTarget(self, action: #selector(goToSomeVC(_:)), for: .touchUpInside)
         return $0
@@ -78,13 +82,15 @@ class SelectGameViewController: UIViewController {
         containerStackView.addArrangedSubview(difficulBoardButton)
         containerStackView.addArrangedSubview(leaderboardButton)
         containerStackView.addArrangedSubview(spaceView)
-//        
+//
         setupNavigationBar()
         setupConstraints()
     }
     
     private func setupNavigationBar() {
         let settingButton = UIBarButtonItem(customView: settingButton)
+        let backButton = UIBarButtonItem(customView: backButton)
+        navigationItem.leftBarButtonItem = backButton
         navigationItem.rightBarButtonItem = settingButton
         navigationItem.hidesBackButton = true
     }
@@ -152,6 +158,8 @@ class SelectGameViewController: UIViewController {
             let navigationController = UINavigationController(rootViewController: VC)
             navigationController.modalPresentationStyle = .fullScreen
             present(navigationController, animated: true)
+        case backButton:
+            pushViewController(SelectGameViewController())
         default:
             print("Unknown button")
         }
@@ -165,5 +173,5 @@ class SelectGameViewController: UIViewController {
 }
 
 #Preview {
-    SelectGameViewController()
+    DifficulSettingController()
 }

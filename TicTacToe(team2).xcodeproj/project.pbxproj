@@ -20,6 +20,7 @@
 		15991A712CAD385000B6CDE8 /* SkinCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15991A702CAD385000B6CDE8 /* SkinCell.swift */; };
 		37FC99E12CADE0C800A25B11 /* LeaderboardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FC99E02CADE0C800A25B11 /* LeaderboardCell.swift */; };
 		37FC99E92CB199EB00A25B11 /* SinglePlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FC99E82CB199EB00A25B11 /* SinglePlayerViewController.swift */; };
+		DD132CCF2CB2642100B7EF3B /* DifficulSettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD132CCE2CB2642100B7EF3B /* DifficulSettingController.swift */; };
 		DDE4C6E82CAD4ABF007CED8D /* TicTacModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE4C6E72CAD4ABF007CED8D /* TicTacModel.swift */; };
 		E71ED1212CB144960025C4A5 /* music1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E71ED1202CB144960025C4A5 /* music1.mp3 */; };
 		E71ED1272CB1AA2A0025C4A5 /* BackgroundMusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71ED1262CB1AA2A0025C4A5 /* BackgroundMusicPlayer.swift */; };
@@ -43,6 +44,7 @@
 		15991A702CAD385000B6CDE8 /* SkinCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkinCell.swift; sourceTree = "<group>"; };
 		37FC99E02CADE0C800A25B11 /* LeaderboardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardCell.swift; sourceTree = "<group>"; };
 		37FC99E82CB199EB00A25B11 /* SinglePlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePlayerViewController.swift; sourceTree = "<group>"; };
+		DD132CCE2CB2642100B7EF3B /* DifficulSettingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifficulSettingController.swift; sourceTree = "<group>"; };
 		DDE4C6E72CAD4ABF007CED8D /* TicTacModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TicTacModel.swift; path = "TicTacToe(team2)/Resources/Assets.xcassets/Skins/xOskin.imageset/TicTacModel.swift"; sourceTree = SOURCE_ROOT; };
 		E71ED1202CB144960025C4A5 /* music1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music1.mp3; sourceTree = "<group>"; };
 		E71ED1262CB1AA2A0025C4A5 /* BackgroundMusicPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundMusicPlayer.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 				15991A412CAA098700B6CDE8 /* HowToPlay */,
 				15991A422CAA099400B6CDE8 /* Result */,
 				15991A432CAA09DA00B6CDE8 /* Leaderboard */,
+				DD132CD02CB2646E00B7EF3B /* DifficulSettingController */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -195,6 +198,14 @@
 			path = SkinCell;
 			sourceTree = "<group>";
 		};
+		DD132CD02CB2646E00B7EF3B /* DifficulSettingController */ = {
+			isa = PBXGroup;
+			children = (
+				DD132CCE2CB2642100B7EF3B /* DifficulSettingController.swift */,
+			);
+			path = DifficulSettingController;
+			sourceTree = "<group>";
+		};
 		F306EAD22CA9AF8000092870 = {
 			isa = PBXGroup;
 			children = (
@@ -300,6 +311,7 @@
 			files = (
 				F306EAE32CA9AF8000092870 /* OnboardingViewController.swift in Sources */,
 				37FC99E12CADE0C800A25B11 /* LeaderboardCell.swift in Sources */,
+				DD132CCF2CB2642100B7EF3B /* DifficulSettingController.swift in Sources */,
 				F306EADF2CA9AF8000092870 /* AppDelegate.swift in Sources */,
 				15991A452CAA0A3400B6CDE8 /* SelectGameViewController.swift in Sources */,
 				15991A4F2CAA0B1000B6CDE8 /* ResultViewController.swift in Sources */,
